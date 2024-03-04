@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&display=swap');
+
+:root {
+  font-family: "Kanit", sans-serif;
+
+  background-color: rgb(224, 222, 222);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.background {
+  background-image: url('https://i.pinimg.com/originals/f7/13/09/f71309057c627a34d2c66759e5f6f10b.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 600px) {
+  .background {
+      background-size: contain;
+  }
+}
+
+.bg-profile {
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.background_admin {
+  background-color: darkslateblue;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.wrapper {
+  width: 420px;
+  background: #fff;
+  color: black;
+  border-radius: 10px;
+  padding: 30px 40px;
+}
+
+.card_edit {
+  width: 920px;
+  background: #fff;
+  color: black;
+  border-radius: 10px;
+  padding: 30px 40px;
+}
+
+.card_2 {
+  width: 1020px;
+  background: #393449;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 30px 40px;
+}
+
+.card_1 {
+  width: 1020px;
+  background: #393449;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 30px 40px;
+  margin-bottom: 10px;
+}
+
+.card_3 {
+  width: 220px;
+  background: #504964;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.wrapper .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border-radius: 40px;
+  font-size: 16px;
+  color: black;
+  padding: 20px 45px 20px 20px;
+}
+
+.input-box label {
+  font-family: "Kanit", sans-serif;
+  color: darkslategray;
+}
+
+.input-box .icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+}
+
+.remember label input {
+  accent-color: black;
+  margin-right: 4px;
+}
+
+.remember a {
+  display: flex;
+  justify-content: end;
+  margin: -15px 0 15px;
+  color: slateblue;
+  text-decoration: none;
+}
+
+.remember a:hover {
+  text-decoration: underline;
+}
+
+.wrapper button {
+  width: 100%;
+  height: 45px;
+  background: slateblue;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgb(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.wrapper .register {
+  font-size: 14.5px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register p a:hover {
+  text-decoration: underline;
+}
+
+.btn-head {
+  font-family: "Kanit", sans-serif;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-image {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-image button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-info {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.profile-info h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.profile-info input,
+.profile-info textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.profile-info select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.profile-info .checkbox {
+  margin-bottom: 10px;
+}

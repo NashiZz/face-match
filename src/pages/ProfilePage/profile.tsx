@@ -17,7 +17,7 @@ function ProfilePage() {
         navigate("/graph");
     }
 
-    return (
+    return (<>
         <div className="bg-profile">
             <Container fixed>
                 <Box sx={{ flexGrow: 1 }}>
@@ -42,13 +42,13 @@ function ProfilePage() {
                                         <h5 className="kanit-regular" style={{ marginRight: 2, fontWeight: "bold", fontSize: 16 }}>999</h5>
                                         <h5 className="kanit-regular" style={{ fontWeight: "bold", fontSize: 16 }} >Point</h5>
                                     </Box>
-                                    <Grid xs={12} sx={{ marginTop: 1 }}>
+                                    <Grid item xs={12} sx={{ marginTop: 1 }}>
                                         {/* <p style={{ fontFamily: 'Kanit, sans-serif' }}> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt itaque natus facilis ut ratione eaque eum impedit voluptatum nulla nostrum, delectus sequi suscipit cum, excepturi minus nobis. Amet, ea fuga.</p> */}
                                     </Grid>
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Grid xs={12} sx={{ marginTop: 5 }}>
+                        <Grid item xs={12} sx={{ marginTop: 5 }}>
                             <Divider />
                             <Container fixed sx={{ marginTop: 5 }}>
                                 <Box sx={{ flexGrow: 1 }}>
@@ -128,6 +128,7 @@ function ProfilePage() {
                 </Box>
             </Container>
         </div>
+    </>
     );
 }
 

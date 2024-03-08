@@ -3,15 +3,20 @@ import { LineChart } from "@mui/x-charts/LineChart";
 import { useNavigate } from "react-router-dom";
 
 const likeData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
+// const likeData = [0];
 const loseData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
 const xLabels = [
-    'Page A',
-    'Page B',
-    'Page C',
-    'Page D',
-    'Page E',
-    'Page F',
-    'Page G',
+    '00',
+    '00',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
 ];
 
 function GraphPage() {
@@ -58,8 +63,7 @@ function GraphPage() {
                         width={700}
                         height={500}
                         series={[
-                            { curve: "natural", data: likeData, label: 'Like' },
-                            { curve: "natural", data: loseData, label: 'Lose' },
+                            { curve: "natural", data: likeData, label: 'Like' }
                         ]}
                         xAxis={[{ scaleType: 'point', data: xLabels }]}
                         slotProps={{

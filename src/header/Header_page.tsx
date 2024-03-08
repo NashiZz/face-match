@@ -26,7 +26,7 @@ function Header() {
   }
 
   function navigateToProfile() {
-    
+
     navigate("/profile");
   }
 
@@ -60,7 +60,7 @@ function Header() {
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
-              fontWeight: 700,
+              fontWeight: 600,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",

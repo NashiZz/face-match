@@ -1,12 +1,46 @@
 import { Box, Button, Card, TextField } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { memeMashService } from "../../service";
+import { UploadPostRespone } from "../../model/uploadPostRespone";
+import axios from "axios";
 
 function EditProfilePage() {
     const navigate = useNavigate();
-
+    const service = new memeMashService();
+    const [ avatar , setAvatar ] = useState("https://i.pinimg.com/736x/f1/93/92/f193927964b8a6237d3aa5a0c587b08b.jpg");
+    const [ file , setFile ] = useState<File>();
+    
+    function selectFile(event:ChangeEvent<HTMLInputElement>){
+        if(event.target.files){
+            setFile(event.target.files[0]);
+            // console.log(file);
+            loadImge()
+        }
+    }
+    
+    
+    async function loadImge(){
+        if(file){
+            console.log("uploading...");
+            const url = "http://localhost:3000/upload";
+            const body = {
+                file : file
+            }
+            const response = await axios.post(url,body,{
+                headers:{
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+            const result = response.data;
+            setAvatar("http://localhost:3000"+result.filename);
+        }
+            
+    }
     function navigateToBack() {
         navigate("/profile");
     }
+
     
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 120 }}>
@@ -20,9 +54,21 @@ function EditProfilePage() {
                 <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", marginLeft: 100 }}>
                     <Card sx={{ width: 700, height: 150, backgroundColor: "lightcyan" }}>
                         <div className="profile-image" style={{ display: "flex",  justifyContent: "space-between" , marginLeft: 50, marginRight: 50, marginTop: 25 }}>
-                            <img src="https://i.pinimg.com/736x/f1/93/92/f193927964b8a6237d3aa5a0c587b08b.jpg" alt="profile" />
+                            <img src={avatar} alt="profile" />
+                            <input
+                            id="file"
+                            type="file"
+                            onChange={selectFile}
+                            />
+                            <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} onClick={()=>{
+                                console.log(file?.name);
+                                
+                            }}>
+                                Upload File
+                            </Button>
                             <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} >แก้ไขโปรไฟล์</Button>
                         </div>
+                        
                     </Card>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column" , marginLeft: 100, marginTop: 30 }}>

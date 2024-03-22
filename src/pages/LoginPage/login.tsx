@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import LockIcon from '@mui/icons-material/Lock';
@@ -16,9 +16,8 @@ function LoginPage() {
     },);
 
     function navigateToHome() {
-        navigate("/home");
+        navigate("/");
     }
-
 
     return (
         <div className="kanit-regular" style={{ display: 'flex', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
@@ -36,9 +35,9 @@ function LoginPage() {
                 <div className='remember'>
                     <a href="#"> ลืมรหัสผ่าน?</a>
                 </div>
-                <button className="kanit-regular" onClick={navigateToHome}>
+                <Button className="kanit-regular" onClick={navigateToHome}>
                     ล๊อคอิน
-                </button>
+                </Button>
 
                 <div className='register'>
                     <p>คุณยังไม่ได้สมัครสมาชิก? <a href="/register">สมัครสมาชิก</a></p>

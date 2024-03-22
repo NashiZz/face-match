@@ -16,9 +16,12 @@ function LoginPage() {
 
     const user = await service.getLogin(username, pwd);
     console.log(user?.status);
+    localStorage.setItem("id_user", user!.id_user.toString());
     localStorage.setItem("username", user!.username);
     localStorage.setItem("email", user!.email);
     localStorage.setItem("status", user!.status);
+    localStorage.setItem("img_avatar", user!.img_avatar);
+    localStorage.setItem("user", JSON.stringify(user));
     if (user?.status == "user") {
       navigate("/");
     } else if (user?.status == "admin") {

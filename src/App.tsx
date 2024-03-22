@@ -37,7 +37,7 @@ const routers = createBrowserRouter([
         element: <PicturePage />
       },
       {
-        path: "/graph",
+        path: "/graph/:id",
         element: <GraphPage />
       },
       {

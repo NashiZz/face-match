@@ -225,7 +225,7 @@ function HomePage() {
     }else if (R1 > 0){
       K1 = 25;
     }else {
-      K1= 0;
+      K1= 25;
     }
     if (R2 > 3000){
       K2 = 5;
@@ -236,7 +236,7 @@ function HomePage() {
     }else if (R2 > 0){
       K2 = 25;
     }else {
-      K2 = 0;
+      K2 = 25;
     }
     let Pa = K1*(s1-Ea)
     let Pb = K2*(s2-Eb)

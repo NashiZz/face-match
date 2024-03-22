@@ -1,6 +1,10 @@
 import axios from "axios";
 import { PostUserRespone } from "./model/postUserRespone";
 import { GetImageRespone } from "./model/getImageRespone";
+import { ImgeVoteGetRes } from "./model/ImgeVoteGetRes";
+import { ImgeVoteGetXlabelRes } from "./model/ImgeVoteGetXlabelRes";
+import { ImgeVoteGetYlabelRes } from "./model/ImgeVoteGetYlabelRes";
+import { UploadPostRespone } from "./model/uploadPostRespone";
 
 const HOST: string = "http://localhost:3000";
 export class memeMashService {
@@ -20,6 +24,16 @@ export class memeMashService {
   }
   async getReqImage (){
     const url = HOST + "/image";
+    const response = await axios.get(url);
+    if(response.status==200){
+        const image: GetImageRespone[] = response.data;
+        return image
+    }else{
+        return [];
+    }
+  }
+  async getReqImageTop10 (){
+    const url = HOST + "/image/top";
     const response = await axios.get(url);
     if(response.status==200){
         const image: GetImageRespone[] = response.data;
@@ -58,5 +72,55 @@ export class memeMashService {
       return null;
   }
     
+  }
+  async getImageVote (){
+    const url = HOST + "/vote";
+    const response = await axios.get(url);
+    if(response.status==200){
+        const imageID: ImgeVoteGetRes[] = response.data;
+        return imageID
+    }else{
+        return [];
+    }
+  }
+  async getXlabel (date:string,id_img:number){
+    const url = HOST + "/vote/xlabel";
+    const body = {
+        date:date,
+        id_img:id_img
+    }
+    const response = await axios.post(url,body);
+    if(response.status==200){
+        const Xlabel: ImgeVoteGetXlabelRes[] = response.data;
+        return Xlabel
+    }else{
+        return [];
+    }
+  }
+  async getYlabel (id_img:number){
+    const url = HOST + "/vote/ylabel";
+    const body = {
+        id_img:id_img
+    }
+    const response = await axios.post(url,body);
+    if(response.status==200){
+        const Ylabel: ImgeVoteGetYlabelRes[] = response.data;
+        return Ylabel
+    }else{
+        return [];
+    }
+  }
+  async postUpload (img:File){
+    const url = HOST + "/upload";
+    const body = {
+        file:img
+    }
+    const response = await axios.post(url,body);
+    if(response.status==200){
+        const image : UploadPostRespone = response.data;
+        return image
+    }else{
+        return null;
+    }
   }
 }

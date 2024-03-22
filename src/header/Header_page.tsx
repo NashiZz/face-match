@@ -26,7 +26,6 @@ function Header() {
   }
 
   function navigateToProfile() {
-
     navigate("/profile");
   }
 
@@ -35,9 +34,15 @@ function Header() {
   }
 
   function navigateToLogin() {
-    localStorage.setItem("username","บุคคลนิรนาม");
-    localStorage.setItem("email","");
-    localStorage.setItem("status","");
+    navigate("/login");
+  }
+  function navigateToLoOut() {
+    localStorage.setItem("username", "บุคคลนิรนาม");
+    localStorage.setItem("email", "");
+    localStorage.setItem("status", "");
+    localStorage.setItem("id_user", "");
+    localStorage.setItem("img_avatar", "");
+    localStorage.setItem("user", "");
     navigate("/login");
   }
 
@@ -60,7 +65,7 @@ function Header() {
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
-              fontWeight: 600,
+              fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
@@ -97,7 +102,18 @@ function Header() {
             >
               อันดับ
             </Button>
-            <Button
+            {localStorage.getItem("username") === "บุคคลนิรนาม" ? (<><Button
+              color="inherit"
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              sx={{ fontFamily: "Kanit, sans-serif" }}
+            >
+              เข้าสู่ระบบ
+            </Button></>):(<>
+                <Button
               color="inherit"
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -108,6 +124,8 @@ function Header() {
             >
               ออกจากระบบ
             </Button>
+            </>)}
+            
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}
@@ -117,44 +135,38 @@ function Header() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem
-                onClick={() => {
-                  navigateToAllUser();
-                  handleClose();
-                }}
-              >
-                User
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  navigateToAllUser();
-                  handleClose();
-                }}
-              >
-                Admin
-              </MenuItem>
-              {localStorage.getItem("username") == "บุคคลนิรนาม" ? (
-              <><MenuItem
-              onClick={() => {
-                navigate("/login");
-                handleClose();
-              }}
-            >
-              LogIn
-            </MenuItem></>
-            ) : (
-              <>
+              {localStorage.getItem("status") === "admin" ? (
                 <MenuItem
-                onClick={() => {
-                  navigateToLogin();
-                  handleClose();
-                }}
-              >
-                Logout
-              </MenuItem>
-              </>
-            )}
-              
+                  onClick={() => {
+                    navigateToAllUser();
+                    handleClose();
+                  }}
+                >
+                  Admin
+                </MenuItem>
+              ) : (
+                <p></p>
+              )}
+              {localStorage.getItem("username") === "บุคคลนิรนาม" ? (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                    handleClose();
+                  }}
+                >
+                  LogIn
+                </MenuItem>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    navigateToLoOut();
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              )}
+
             </Menu>
           </div>
         </Toolbar>

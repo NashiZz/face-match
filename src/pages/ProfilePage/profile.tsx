@@ -57,7 +57,7 @@ function ProfilePage() {
   return (
     <>
       <div className="bg-profile">
-        <Container fixed>
+        <Container fixed style={{ minHeight:"100vh" }}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid
@@ -75,14 +75,12 @@ function ProfilePage() {
                   />
                 </Grid>
                 <Grid
-                  item
-                  xs={8}
-                  md={5}
-                  lg={6.5}
+                  item xs={8} md={5} lg={6.5}
                   sx={{ fontSize: { xs: 18, md: 25 } }}
                 >
                   <Box>
                     <Box
+                    className="mb-8"
                       sx={{
                         display: "flex",
                         flexDirection: "row",
@@ -174,7 +172,7 @@ function ProfilePage() {
                       {images.current
                         ? images.current.map((image) => (
                             <Fragment key={image.id_img}>
-                              <Grid item xs={5} lg={3.5}>
+                              <Grid item xs={3.5} lg={2.4}>
                                 <Box
                                   sx={{
                                     position: "relative",

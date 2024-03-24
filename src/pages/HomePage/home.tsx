@@ -62,10 +62,7 @@ function HomePage() {
                       if (chekVote == 0) {
                         btnVote(P1.score, P2.score, 1, 0)
                       }
-
-                    }
-
-                    }
+                    }}
                   />
                   <div className="mt-6 text-white">
                     <h3 className="text-center text-lg font-bold ">{P1?.name}</h3>

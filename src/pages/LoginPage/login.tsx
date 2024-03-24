@@ -1,8 +1,6 @@
 import { Button, TextField } from "@mui/material";
-import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import LockIcon from "@mui/icons-material/Lock";
-import EmailIcon from "@mui/icons-material/Email";
+import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { memeMashService } from "../../service";
 
 function LoginPage() {
@@ -27,7 +25,7 @@ function LoginPage() {
 
   return (
     <div
-      className="kanit-regular"
+      className="kanit-regular flex justify-center items-center bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500"
       style={{
         display: "flex",
         boxSizing: "border-box",
@@ -43,20 +41,12 @@ function LoginPage() {
             style={{ display: "flex", flexDirection: "row" }}
             className="input-box"
           >
-            <EmailIcon
-              sx={{ width: 20, pl: 1, pb: 1, pr: "8px" }}
-              className="icon"
-            />
             <TextField label="อีเมล" inputRef={username} fullWidth />
           </div>
           <div
             style={{ display: "flex", flexDirection: "row" }}
             className="input-box"
           >
-            <LockIcon
-              sx={{ width: 20, pl: 1, pb: 1, pr: "8px" }}
-              className="icon"
-            />
             <TextField
               label="รหัสผ่าน"
               type="password"
@@ -76,10 +66,9 @@ function LoginPage() {
           >
             ล๊อคอิน
           </Button>
-
           <div className="register">
             <p>
-              คุณยังไม่ได้สมัครสมาชิก? <a href="/register">สมัครสมาชิก</a>
+              คุณยังไม่ได้สมัครสมาชิก? <Link to="/registers">สมัครสมาชิก</Link>
             </p>
           </div>
         </form>

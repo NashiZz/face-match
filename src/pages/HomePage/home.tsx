@@ -2,6 +2,8 @@ import { memeMashService } from "../../service";
 import { GetImageRespone } from "../../model/getImageRespone";
 import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/system";
+import VsImage from "../../assets/img/Vs.png";
+
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -43,142 +45,152 @@ function HomePage() {
 
   return (
     <div className="grid grid-cols-6 gap-4 bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500 " style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: "50px" }}>
-      <h1 style={{ position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)", fontSize: "2vw", color: "white" }}>
-        โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก!!
-      </h1>
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 50px)">
-        {P1 && P2 ? (
-          <>
-            <div className="w-1/2 m-4 relative">
-              <img
-                src={P1?.img}
-                alt={P1?.name}
-                className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => {
-                  if(chekVote == 0){
-                    btnVote(P1.score, P2.score, 1, 0)
-                  }
-                  
-                }
-                  
-                  }
-              />
-              <div className="mt-6 text-white">
-                <h3 className="text-center text-lg font-bold ">{P1?.name}</h3>
-                {chekShowP == 0 ? (
-                  <></>
-                ) : (
-                  <>
-                    {chekColor == 1 ? (
-                      <>
-                      <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
-                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
-                        <p style={{ color: "white" }}>
-                          คำนวณหาค่าคาดหวัง <br /> 
-                          1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
-                          1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
-                          Ka * (Sa - Ea) = Pa <br />
-                          {showKa} * (1 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
-                          Ra + Pa = Ra <br />
-                          {P1.score} + {showPa.toFixed(2)} = {score1} <br />
-                          </p>
-                      </div>
-                      <p className="text-center" style={{ color: "green" }}>+{scorePa}</p></>
+        <div className="flex flex-col justify-center items-center ">
+          <h1 className="pb-16" style={{ fontSize: "2vw", color: "white" }} >
+            โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก!!
+          </h1>
+          <div className="flex flex-row justify-center items-center">
+            {P1 && P2 ? (
+              <>
+                <div className="w-1/2 m-4 relative">
+                  <img
+                    src={P1?.img}
+                    alt={P1?.name}
+                    className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
+                    onClick={() => {
+                      if (chekVote == 0) {
+                        btnVote(P1.score, P2.score, 1, 0)
+                      }
+
+                    }
+
+                    }
+                  />
+                  <div className="mt-6 text-white">
+                    <h3 className="text-center text-lg font-bold ">{P1?.name}</h3>
+                    {chekShowP == 0 ? (
+                      <></>
                     ) : (
                       <>
-                      <div className="border-4 rounded-lg border-red-300 p-4 " >
-                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
-                        <p style={{ color: "white" }}>
-                          คำนวณหาค่าคาดหวัง <br /> 
-                          1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
-                          1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
-                          Ka * (Sa - Ea) = Pa <br />
-                          {showKa} * (0 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
-                          Ra + Pa = Ra <br />
-                          {P1.score} + {showPa.toFixed(2)} = {score1} <br />
-                          </p>
-                      </div>
-                      <p className="text-center" style={{ color: "red" }}>{scorePa}</p></>
+                        {chekColor == 1 ? (
+                          <>
+                            <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
+                              <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                              <p style={{ color: "white" }}>
+                                คำนวณหาค่าคาดหวัง <br />
+                                1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
+                                1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                                Ka * (Sa - Ea) = Pa <br />
+                                {showKa} * (1 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                                Ra + Pa = Ra <br />
+                                {P1.score} + {showPa.toFixed(2)} = {score1} <br />
+                              </p>
+                            </div>
+                            <p className="text-center" style={{ color: "green" }}>+{scorePa}</p></>
+                        ) : (
+                          <>
+                            <div className="border-4 rounded-lg border-red-300 p-4 " >
+                              <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                              <p style={{ color: "white" }}>
+                                คำนวณหาค่าคาดหวัง <br />
+                                1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
+                                1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                                Ka * (Sa - Ea) = Pa <br />
+                                {showKa} * (0 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                                Ra + Pa = Ra <br />
+                                {P1.score} + {showPa.toFixed(2)} = {score1} <br />
+                              </p>
+                            </div>
+                            <p className="text-center" style={{ color: "red" }}>{scorePa}</p></>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-                <p className="text-center">{score1}</p>
-              </div>
-            </div>
-            <div className="w-1/2 m-4 relative">
-              <img
-                src={P2?.img}
-                alt={P2?.name}
-                className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => {
-                  if(chekVote == 0){
-                    btnVote(P1.score, P2.score, 0, 1)
-                  }
-                  
-                }}
-              />
-              <div className="mt-6 text-white">
-                <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
-                {chekShowP == 0 ? (
-                  <></>
-                ) : (
-                  <>
-                    {chekColor == 2 ? (
-                      <>
-                      <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
-                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
-                        <p style={{ color: "white" }}>
-                          คำนวณหาค่าคาดหวัง <br /> 
-                          1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
-                          1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
-                          Ka * (Sa - Ea) = Pa <br />
-                          {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
-                          Ra + Pa = Ra <br />
-                          {P2.score} + {showPb.toFixed(2)} = {score2} <br />
-                          </p>
-                      </div>
-                      <p className="text-center" style={{ color: "green" }}>+{scorePb}</p></>
+                    <p className="text-center">{score1}</p>
+                  </div>
+                </div>
+                <div className="mx-5">
+                  <img
+                    src={VsImage}
+                    className="w-full h-60 object-cover"
+                  />
+                </div>
+                <div className="w-1/2 m-4 relative">
+                  <img
+                    src={P2?.img}
+                    alt={P2?.name}
+                    className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
+                    onClick={() => {
+                      if (chekVote == 0) {
+                        btnVote(P1.score, P2.score, 0, 1)
+                      }
+
+                    }}
+                  />
+                  <div className="mt-6 text-white">
+                    <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
+                    {chekShowP == 0 ? (
+                      <></>
                     ) : (
                       <>
-                      <div className="border-4 rounded-lg border-red-300 p-4 " >
-                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
-                        <p style={{ color: "white" }}>
-                          คำนวณหาค่าคาดหวัง <br /> 
-                          1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
-                          1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
-                          Ka * (Sa - Ea) = Pa <br />
-                          {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
-                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
-                          Ra + Pa = Ra <br />
-                          {P2.score} + {showPb.toFixed(2)} = {score2} <br />
-                          </p>
-                      </div>
-                      <p className="text-center" style={{ color: "red" }}>{scorePb}</p></>
+                        {chekColor == 2 ? (
+                          <>
+                            <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
+                              <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                              <p style={{ color: "white" }}>
+                                คำนวณหาค่าคาดหวัง <br />
+                                1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
+                                1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                                Ka * (Sa - Ea) = Pa <br />
+                                {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                                Ra + Pa = Ra <br />
+                                {P2.score} + {showPb.toFixed(2)} = {score2} <br />
+                              </p>
+                            </div>
+                            <p className="text-center" style={{ color: "green" }}>+{scorePb}</p></>
+                        ) : (
+                          <>
+                            <div className="border-4 rounded-lg border-red-300 p-4 " >
+                              <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                              <p style={{ color: "white" }}>
+                                คำนวณหาค่าคาดหวัง <br />
+                                1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
+                                1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                                Ka * (Sa - Ea) = Pa <br />
+                                {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
+                                ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                                Ra + Pa = Ra <br />
+                                {P2.score} + {showPb.toFixed(2)} = {score2} <br />
+                              </p>
+                            </div>
+                            <p className="text-center" style={{ color: "red" }}>{scorePb}</p></>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-                <p className="text-center">{score2}</p>
-              </div>
-            </div>
-          </>
-        ) : (
-          <Box textAlign="center">
-            <p>ไม่มีข้อมูลแล้ว เริ่มใหม่โปรดกด Start และรอ 5 วินาที</p>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-              onClick={Load}
-            >
-              Start
-            </button>
-          </Box>
-        )}
+                    <p className="text-center">{score2}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Box textAlign="center">
+                <p>ไม่มีข้อมูลแล้ว เริ่มใหม่โปรดกด Start และรอ 5 วินาที</p>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  onClick={Load}
+                >
+                  Start
+                </button>
+              </Box>
+            )}
+          </div>
+        </div>
       </Box>
     </div>
   );

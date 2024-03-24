@@ -56,25 +56,17 @@ function EditProfilePage() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 120,
-      }}
-    >
+    <div className="flex justify-center items-center bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
       <div className="card_edit">
         <div
+          className="flex justify-center "
           style={{
             display: "flex",
             justifyContent: "space-between",
-            width: "100%",
-            marginTop: 20,
           }}
         >
-          <h1 style={{ marginLeft: 80 }}>แก้ไขโปรไฟล์</h1>
-          <Box sx={{ marginRight: 10, marginTop: 2 }}>
+          <h1 className="text-lg font-bold">แก้ไขโปรไฟล์</h1>
+          <Box className="pb-8">
             <Button
               variant="contained"
               onClick={navigateToBack}
@@ -87,12 +79,11 @@ function EditProfilePage() {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
-            marginLeft: 100,
           }}
         >
-          <Card sx={{display:"flex",flexDirection:"column",justifyContent:"start",alignItems:"center", width: 700, height: 200, backgroundColor: "lightcyan" }}>
+          <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "center", width: 700, height: 200, backgroundColor: "lightcyan" }}>
             <div
               className="profile-image"
               style={{
@@ -104,30 +95,30 @@ function EditProfilePage() {
               }}
             >
               <img src={avatar} alt="profile" />
-              
+
             </div>
             <div>
-                <Button
-                  variant="contained"
-                  sx={{ fontFamily: "Kanit, sans-serif" }}
-                >
-                  <label htmlFor="file">change image</label>
-                </Button>
-                <input
-                  id="file"
-                  type="file"
-                  accept="image/*"
-                  onChange={selectFile}
-                  style={{ display: "none" }}
-                />
-              </div>
+              <Button
+                variant="contained"
+                sx={{ fontFamily: "Kanit, sans-serif" }}
+              >
+                <label htmlFor="file">change image</label>
+              </Button>
+              <input
+                id="file"
+                type="file"
+                accept="image/*"
+                onChange={selectFile}
+                style={{ display: "none" }}
+              />
+            </div>
           </Card>
         </div>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            marginLeft: 100,
+            marginLeft: 70,
             marginTop: 30,
           }}
         >
@@ -137,7 +128,7 @@ function EditProfilePage() {
             style={{ width: 700 }}
             defaultValue={user?.username}
           />
-          <h2>โปรดใส่รหัสผ่านเพื่อยืนยันการแก้ไข</h2>
+          <h2 className="mt-6" >โปรดใส่รหัสผ่านเพื่อยืนยันการแก้ไข</h2>
           <TextField fullWidth style={{ width: 700 }} type="password" />
           <div
             style={{
@@ -145,6 +136,7 @@ function EditProfilePage() {
               justifyContent: "center",
               alignItems: "center",
               marginTop: 30,
+              marginRight: 60
             }}
           >
             <Button

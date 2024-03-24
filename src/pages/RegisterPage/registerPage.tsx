@@ -1,19 +1,13 @@
 import { TextField } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 
-function RegisterPage() {
+function Register_Page() {
     const username = useRef<HTMLInputElement>();
     const pwd = useRef<HTMLInputElement>();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (localStorage.getItem("user") != undefined) {
-            navigate("/home")
-        }
-    },);
 
     function navigateToHome() {
         navigate("/home");
@@ -51,4 +45,4 @@ function RegisterPage() {
         </div>
     );
 }
-export default RegisterPage;
+export default Register_Page;

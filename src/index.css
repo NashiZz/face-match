@@ -83,7 +83,7 @@ body {
   background: #393449;
   color: rgb(255, 255, 255);
   border-radius: 10px;
-  padding: 30px 40px;
+  padding: 20px 40px;
   margin-bottom: 10px;
 }
 
@@ -135,7 +135,7 @@ body {
   display: flex;
   justify-content: end;
   margin: -15px 0 15px;
-  color: slateblue;
+  color: black;
   text-decoration: none;
 }
 
@@ -165,12 +165,12 @@ body {
 
 .register p a:hover {
   text-decoration: underline;
+  color: slateblue;
 }
 
 .btn-head {
   font-family: "Kanit", sans-serif;
 }
-
 
 .container {
   max-width: 800px;

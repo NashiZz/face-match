@@ -50,7 +50,7 @@ function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ boxShadow: 10, backgroundColor: "cornflowerblue" }}
+        sx={{ boxShadow: 10, backgroundColor: "darkslateblue" }}
       >
         <Toolbar>
           <RecommendRoundedIcon

@@ -7,9 +7,12 @@ import { GetImageRespone } from "../../model/getImageRespone";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
+import VsImage from "../../assets/img/Vs.png";
+
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
 }
+
 function HomePage() {
   const service = new memeMashService();
   const pics = useRef<GetImageRespone[]>([]);
@@ -40,70 +43,80 @@ function HomePage() {
 
   return (
     <div className="grid grid-cols-6 gap-4 bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500 " style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: "50px" }}>
-      <h1 style={{ position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)", fontSize: "2vw", color: "white" }}>
-        โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก!!
-      </h1>
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 50px)">
-        {P1 && P2 ? (
-          <>
-            <div className="w-1/2 m-4 relative">
-              <img
-                src={P1?.img}
-                alt={P1?.name}
-                className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => btnVote(P1.score, P2.score, 1, 0)}
-              />
-              <div className="mt-6 text-white">
-                <h3 className="text-center text-lg font-bold">{P1?.name}</h3>
-                {chekShowP == 0 ? (
-                  <></>
-                ) : (
-                  <>
-                    {chekColor == 1 ? (
-                      <><p style={{ color: "green" }}>+{scorePa}</p></>
+        <div className="flex flex-col justify-center items-center ">
+          <h1 className="pb-16"  style={{ fontSize: "2vw", color: "white" }} >
+            โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก!!
+          </h1>
+          <div className="flex flex-row justify-center items-center">
+            {P1 && P2 ? (
+              <>
+                <div className="w-1/2 m-5 relative">
+                  <img
+                    src={P1?.img}
+                    alt={P1?.name}
+                    className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
+                    onClick={() => btnVote(P1.score, P2.score, 1, 0)}
+                  />
+                  <div className="mt-6 text-white">
+                    <h3 className="text-center text-lg font-bold">{P1?.name}</h3>
+                    {chekShowP == 0 ? (
+                      <></>
                     ) : (
-                      <><p style={{ color: "red" }}>{scorePa}</p></>
+                      <>
+                        {chekColor == 1 ? (
+                          <><p style={{ color: "green" }}>+{scorePa}</p></>
+                        ) : (
+                          <><p style={{ color: "red" }}>{scorePa}</p></>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-                <p className="text-center">{score1}</p>
-              </div>
-            </div>
-            <div className="w-1/2 m-4 relative">
-              <img
-                src={P2?.img}
-                alt={P2?.name}
-                className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => btnVote(P1.score, P2.score, 0, 1)}
-              />
-              <div className="mt-6 text-white">
-                <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
-                {chekShowP == 0 ? (
-                  <></>
-                ) : (
-                  <>
-                    {chekColor == 2 ? (
-                      <><p style={{ color: "green" }}>+{scorePb}</p></>
+                    <p className="text-center">{score1}</p>
+                  </div>
+                </div>
+                <div className="">
+                  <img
+                    src={VsImage}
+                    className="w-60 h-50 object-cover"
+                  />
+                </div>
+                <div className="w-1/2 m-4 relative">
+                  <img
+                    src={P2?.img}
+                    alt={P2?.name}
+                    className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
+                    onClick={() => btnVote(P1.score, P2.score, 0, 1)}
+                  />
+                  <div className="mt-6 text-white">
+                    <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
+                    {chekShowP == 0 ? (
+                      <></>
                     ) : (
-                      <><p style={{ color: "red" }}>{scorePb}</p></>
+                      <>
+                        {chekColor == 2 ? (
+                          <><p style={{ color: "green" }}>+{scorePb}</p></>
+                        ) : (
+                          <><p style={{ color: "red" }}>{scorePb}</p></>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-                <p className="text-center">{score2}</p>
-              </div>
-            </div>
-          </>
-        ) : (
-          <Box textAlign="center">
-            <p>ไม่มีข้อมูลแล้ว เริ่มใหม่โปรดกด Start และรอ 5 วินาที</p>
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-              onClick={Load}
-            >
-              Start
-            </button>
-          </Box>
-        )}
+                    <p className="text-center">{score2}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Box textAlign="center">
+                <p>ไม่มีข้อมูลแล้ว เริ่มใหม่โปรดกด Start และรอ 5 วินาที</p>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  onClick={Load}
+                >
+                  Start
+                </button>
+              </Box>
+            )}
+          </div>
+        </div>
       </Box>
     </div>
   );

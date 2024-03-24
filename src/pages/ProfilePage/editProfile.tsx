@@ -1,5 +1,5 @@
 import { Box, Button, Card, TextField } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { memeMashService } from "../../service";
 import { UploadPostRespone } from "../../model/uploadPostRespone";
@@ -15,6 +15,8 @@ function EditProfilePage() {
   const service = new memeMashService();
   const [avatar, setAvatar] = useState(user?.img_avatar);
   const [file, setFile] = useState<File>();
+  const username = useRef<HTMLInputElement>();
+  const pwd = useRef<HTMLInputElement>();
 
   useEffect(() => {
     const updateImagePreviews = () => {
@@ -53,6 +55,10 @@ function EditProfilePage() {
   }
   function navigateToBack() {
     navigate("/profile");
+  }
+  async function btnEditData (username:string,password:string){
+    
+
   }
 
   return (
@@ -127,9 +133,10 @@ function EditProfilePage() {
             fullWidth
             style={{ width: 700 }}
             defaultValue={user?.username}
+            inputRef={username}
           />
           <h2 className="mt-6" >โปรดใส่รหัสผ่านเพื่อยืนยันการแก้ไข</h2>
-          <TextField fullWidth style={{ width: 700 }} type="password" />
+          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
           <div
             style={{
               display: "flex",
@@ -142,6 +149,11 @@ function EditProfilePage() {
             <Button
               variant="contained"
               sx={{ fontFamily: "Kanit, sans-serif" }}
+              onClick={() => {
+              if (username.current && pwd.current) {
+                btnEditData(username.current.value, pwd.current.value);
+              }
+            }}
             >
               บันทึก
             </Button>

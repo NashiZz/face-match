@@ -10,7 +10,7 @@ function LoginPage() {
   const service = new memeMashService();
 
   async function login(username: string, pwd: string) {
-    console.log(username, pwd);
+    // console.log(username, pwd);
 
     const user = await service.getLogin(username, pwd);
     localStorage.setItem("user", JSON.stringify(user));

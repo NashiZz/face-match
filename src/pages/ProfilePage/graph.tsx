@@ -21,7 +21,6 @@ function GraphPage() {
     "day": ""
 }]);
   const formattedDateTime = moment().format("Y-MM-DD");
-  // 
   
   const [today, setToday] = useState(formattedDateTime);
   const formattedDateTimeTest = new Date();

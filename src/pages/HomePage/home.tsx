@@ -46,7 +46,7 @@ function HomePage() {
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="calc(100vh - 50px)">
         <div className="flex flex-col justify-center items-center ">
           <h1 className="pb-16"  style={{ fontSize: "2vw", color: "white" }} >
-            โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก!!
+            โหวตรูปภาพ Meme ที่คุณชอบโดยการคลิก ห่าขั้วมึง!! 
           </h1>
           <div className="flex flex-row justify-center items-center">
             {P1 && P2 ? (

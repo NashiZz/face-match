@@ -1,11 +1,6 @@
-import { Grid } from "@mui/material";
-import Button from "@mui/joy/Button";
-import Card from "@mui/joy/Card";
-import CardContent from "@mui/joy/CardContent";
 import { memeMashService } from "../../service";
 import { GetImageRespone } from "../../model/getImageRespone";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,9 +13,17 @@ function HomePage() {
   const [score1, setScore1] = useState(P1?.score);
   const [score2, setScore2] = useState(P2?.score);
   const [chekShowP, setChekShowP] = useState(0);
+  const [chekVote, setChekVote] = useState(0);
   const [chekColor, setChekColor] = useState(0);
   const [scorePa, setScorePa] = useState(0);
   const [scorePb, setScorePb] = useState(0);
+
+  const [showKa, setShowKa] = useState(0);
+  const [showKb, setShowKb] = useState(0);
+  const [showEa, setShowEa] = useState(0);
+  const [showEb, setShowEb] = useState(0);
+  const [showPa, setShowPa] = useState(0);
+  const [showPb, setShowPb] = useState(0);
   // const navigate = useNavigate();
   // const [IndexImage,setIndexImage] = useState(4);
 
@@ -51,18 +54,55 @@ function HomePage() {
                 src={P1?.img}
                 alt={P1?.name}
                 className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => btnVote(P1.score, P2.score, 1, 0)}
+                onClick={() => {
+                  if(chekVote == 0){
+                    btnVote(P1.score, P2.score, 1, 0)
+                  }
+                  
+                }
+                  
+                  }
               />
               <div className="mt-6 text-white">
-                <h3 className="text-center text-lg font-bold">{P1?.name}</h3>
+                <h3 className="text-center text-lg font-bold ">{P1?.name}</h3>
                 {chekShowP == 0 ? (
                   <></>
                 ) : (
                   <>
                     {chekColor == 1 ? (
-                      <><p style={{ color: "green" }}>+{scorePa}</p></>
+                      <>
+                      <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
+                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                        <p style={{ color: "white" }}>
+                          คำนวณหาค่าคาดหวัง <br /> 
+                          1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
+                          1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                          Ka * (Sa - Ea) = Pa <br />
+                          {showKa} * (1 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                          Ra + Pa = Ra <br />
+                          {P1.score} + {showPa.toFixed(2)} = {score1} <br />
+                          </p>
+                      </div>
+                      <p className="text-center" style={{ color: "green" }}>+{scorePa}</p></>
                     ) : (
-                      <><p style={{ color: "red" }}>{scorePa}</p></>
+                      <>
+                      <div className="border-4 rounded-lg border-red-300 p-4 " >
+                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                        <p style={{ color: "white" }}>
+                          คำนวณหาค่าคาดหวัง <br /> 
+                          1 / (1 + 10 ** ((Rb - Ra) / 400)) = Ea <br />
+                          1 / (1 + 10 ** (({P2.score} - {P1.score}) / 400)) = {showEa.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                          Ka * (Sa - Ea) = Pa <br />
+                          {showKa} * (0 - {showEa.toFixed(2)}) = {showPa.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                          Ra + Pa = Ra <br />
+                          {P1.score} + {showPa.toFixed(2)} = {score1} <br />
+                          </p>
+                      </div>
+                      <p className="text-center" style={{ color: "red" }}>{scorePa}</p></>
                     )}
                   </>
                 )}
@@ -74,7 +114,12 @@ function HomePage() {
                 src={P2?.img}
                 alt={P2?.name}
                 className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                onClick={() => btnVote(P1.score, P2.score, 0, 1)}
+                onClick={() => {
+                  if(chekVote == 0){
+                    btnVote(P1.score, P2.score, 0, 1)
+                  }
+                  
+                }}
               />
               <div className="mt-6 text-white">
                 <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
@@ -83,9 +128,39 @@ function HomePage() {
                 ) : (
                   <>
                     {chekColor == 2 ? (
-                      <><p style={{ color: "green" }}>+{scorePb}</p></>
+                      <>
+                      <div className="border-4 rounded-lg border-lime-200 p-4 text-sm" >
+                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                        <p style={{ color: "white" }}>
+                          คำนวณหาค่าคาดหวัง <br /> 
+                          1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
+                          1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                          Ka * (Sa - Ea) = Pa <br />
+                          {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                          Ra + Pa = Ra <br />
+                          {P2.score} + {showPb.toFixed(2)} = {score2} <br />
+                          </p>
+                      </div>
+                      <p className="text-center" style={{ color: "green" }}>+{scorePb}</p></>
                     ) : (
-                      <><p style={{ color: "red" }}>{scorePb}</p></>
+                      <>
+                      <div className="border-4 rounded-lg border-red-300 p-4 " >
+                        <p className="text-center" style={{ color: "white" }}>การคำนวณ</p>
+                        <p style={{ color: "white" }}>
+                          คำนวณหาค่าคาดหวัง <br /> 
+                          1 / (1 + 10 ** ((Ra - Rb) / 400)) = Ea <br />
+                          1 / (1 + 10 ** (({P1.score} - {P2.score}) / 400)) = {showEb.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 2 คำนวณคะแนนที่ได้จากการโหวด <br />
+                          Ka * (Sa - Ea) = Pa <br />
+                          {showKb} * (1 - {showEb.toFixed(2)}) = {showPb.toFixed(2)} <br /> <br />
+                          ขั้นตอนที่ 3 อัปเดตคะแนน <br />
+                          Ra + Pa = Ra <br />
+                          {P2.score} + {showPb.toFixed(2)} = {score2} <br />
+                          </p>
+                      </div>
+                      <p className="text-center" style={{ color: "red" }}>{scorePb}</p></>
                     )}
                   </>
                 )}
@@ -140,10 +215,18 @@ function HomePage() {
     let Pb = K2 * (s2 - Eb)
     let RA = Ra + Pa;
     let RB = Rb + Pb;
+
+    setShowKa(K1);
+    setShowKb(K2);
+    setShowEa(Ea);
+    setShowEb(Eb);
+    setShowPa(Pa);
+    setShowPb(Pb);
     setScorePa(Math.round(Pa))
     setScorePb(Math.round(Pb))
     setScore1(Math.round(RA));
     setScore2(Math.round(RB));
+    setChekVote(1);
     setChekShowP(1);
     if (s1 == 1) {
       setChekColor(1)
@@ -161,8 +244,9 @@ function HomePage() {
     };
     // console.log(P1?.id_img,P2?.id_img,localStorage.getItem("username"));
 
-    await delay(2000);
+    await delay(10000);
     setChekShowP(0);
+    setChekVote(0);
     loadNextImg();
     // await delay(5000);
   }

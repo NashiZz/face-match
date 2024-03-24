@@ -28,7 +28,7 @@ function GraphPage() {
   // console.log(formattedDateTimeTest);
   const dateOptions = Array.from({ length: 7 }, (_, index) => {
     const date = new Date(formattedDateTimeTest);
-    date.setDate(formattedDateTimeTest.getDate() - (index-1));
+    date.setDate(formattedDateTimeTest.getDate() - (index-0));
     // console.log(date.toISOString().split("T")[0]);
     return date.toISOString().split("T")[0];
   });

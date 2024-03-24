@@ -21,6 +21,8 @@ function HomePage() {
   const [chekColor,setChekColor] = useState(0);
   const [scorePa,setScorePa] = useState(0);
   const [scorePb,setScorePb] = useState(0);
+  const [Ea , setEa] = useState(0);
+  const [Eb , setEb] = useState(0);
   // const navigate = useNavigate();
   // const [IndexImage,setIndexImage] = useState(4);
 
@@ -156,10 +158,13 @@ function HomePage() {
                     justifyContent: "center",
                   }}
                 >
-                  <CardContent orientation="horizontal">
+                  <CardContent orientation="horizontal" sx={{display:"flex",flexDirection:"column"}}> 
                   {chekShowP == 0 ? (<>
                     </>):(<>
-                      {chekColor == 2 ? (<><p style={{color:"green"}}>+{scorePb}</p></>):(<><p style={{color:"red"}}>{scorePb}</p></>)}
+                      {chekColor == 2 ? (<>
+                          <p style={{color:"green"}}>+{scorePb}</p>
+                          <p style={{color:"green"}}></p>
+                      </>):(<><p style={{color:"red"}}>{scorePb}</p></>)}
                     </>)}
                     <p>{score2}</p>
                     <Button

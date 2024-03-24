@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { memeMashService } from "../../service";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { ImgeVoteGetRes } from "../../model/ImgeVoteGetRes";
-import { ImgeVoteGetXlabelRes } from "../../model/ImgeVoteGetXlabelRes";
 import moment from "moment";
 import { ImgeVoteGetYlabelRes } from "../../model/ImgeVoteGetYlabelRes";
 

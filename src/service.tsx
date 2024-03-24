@@ -2,9 +2,9 @@ import axios from "axios";
 import { PostUserRespone } from "./model/postUserRespone";
 import { GetImageRespone } from "./model/getImageRespone";
 import { ImgeVoteGetRes } from "./model/ImgeVoteGetRes";
-import { ImgeVoteGetXlabelRes } from "./model/ImgeVoteGetXlabelRes";
 import { ImgeVoteGetYlabelRes } from "./model/ImgeVoteGetYlabelRes";
 import { UploadPostRespone } from "./model/uploadPostRespone";
+import { VotePostDateRes } from "./model/votePostDateRes";
 
 const HOST: string = "http://localhost:3000";
 export class memeMashService {
@@ -83,20 +83,6 @@ export class memeMashService {
         return [];
     }
   }
-  async getXlabel (date:string,id_img:number){
-    const url = HOST + "/vote/xlabel";
-    const body = {
-        date:date,
-        id_img:id_img
-    }
-    const response = await axios.post(url,body);
-    if(response.status==200){
-        const Xlabel: ImgeVoteGetXlabelRes[] = response.data;
-        return Xlabel
-    }else{
-        return [];
-    }
-  }
   async getYlabel (id_img:number){
     const url = HOST + "/vote/ylabel";
     const body = {
@@ -121,6 +107,19 @@ export class memeMashService {
         return image
     }else{
         return null;
+    }
+  }
+  async getBeforeRank(date: string) {
+    const url = HOST + "/vote/ranking";
+    const body = {
+        date:date,
+    }
+    const response = await axios.post(url,body);
+    if(response.status==200){
+        const data: VotePostDateRes[] = response.data;
+        return data
+    }else{
+        return [];
     }
   }
 }

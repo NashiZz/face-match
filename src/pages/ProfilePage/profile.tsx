@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { memeMashService } from "../../service";
@@ -57,7 +59,7 @@ function ProfilePage() {
   return (
     <>
       <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
-        <div className="bg-slate-50 rounded-md" style={{ width: "1200px", maxHeight: "1000px" }} >
+        <div className="bg-slate-50 rounded-md" style={{ width: "1200px", height: "700px" }} >
           <Container fixed>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
@@ -68,7 +70,7 @@ function ProfilePage() {
                   spacing={2}
                   style={{ marginTop: 20 }}
                 >
-                  <Grid item xs={5} md={4} lg={3} sx={{ marginRight: 10 }}>
+                  <Grid item xs={3} md={3} lg={3} sx={{ marginRight: 10 }}>
                     <img
                       style={{ borderRadius: "50%", width: "100%" }}
                       src={user.current?.img_avatar}
@@ -76,7 +78,7 @@ function ProfilePage() {
                     />
                   </Grid>
                   <Grid
-                    item xs={8} md={5} lg={6.5}
+                    item xs={4} md={5.0} lg={6.5}
                     sx={{ fontSize: { xs: 18, md: 25 } }}
                   >
                     <Box>
@@ -157,7 +159,7 @@ function ProfilePage() {
                     </Box>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} sx={{ marginTop: 5 }}>
+                <Grid item xs={12}>
                   <Divider />
                   <Container fixed sx={{ marginTop: 5 }}>
                     <Box sx={{ flexGrow: 1 }}>
@@ -170,59 +172,89 @@ function ProfilePage() {
                           alignItems: "center",
                         }}
                       >
-                        {images.current
-                          ? images.current.map((image) => (
-                            <Fragment key={image.id_img}>
-                              <Grid item xs={3.5} lg={2.4}>
-                                <Box
+                        {[...Array(Math.min(5, images.current.length))].map((_, index) => (
+                          <Fragment key={index}>
+                            <Grid item xs={2.4} lg={2.4}>
+                              <Box
+                                sx={{
+                                  position: "relative",
+                                  width: "100%",
+                                  height: 0,
+                                  paddingBottom: "100%",
+                                  borderRadius: "10px",
+                                  overflow: "hidden",
+                                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                                }}
+                              >
+                                <img
                                   className="cursor-pointer transition-transform transform hover:scale-110"
-                                  sx={{
-                                    position: "relative",
+                                  style={{
+                                    position: "absolute",
                                     width: "100%",
-                                    height: 0,
-                                    paddingBottom: "100%",
-                                    borderRadius: "10px",
-                                    overflow: "hidden",
-                                    boxShadow:
-                                      "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                                    height: "100%",
+                                    objectFit: "cover",
                                   }}
-                                >
-                                  <img
-                                    style={{
-                                      position: "absolute",
-                                      width: "100%",
-                                      height: "100%",
-                                      objectFit: "cover",
-                                    }}
-                                    src={image.img}
-                                    alt=""
-                                    onClick={() => {
-                                      navigateToGraph(image.id_img)
-                                    }}
-                                  />
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "end",
-                                    marginTop: "8px",
+                                  src={images.current[index].img}
+                                  alt=""
+                                  onClick={() => {
+                                    navigateToGraph(images.current[index].id_img);
                                   }}
+                                />
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
+                                  marginTop: "8px",
+                                }}
+                              >
+                                <IconButton aria-label="like">
+                                  <FavoriteIcon color="error" />
+                                </IconButton>
+                                <Typography
+                                  variant="body2"
+                                  sx={{ fontFamily: "Kanit, sans-serif" }}
                                 >
-                                  <IconButton aria-label="like">
-                                    <FavoriteIcon color="error" />
-                                  </IconButton>
-                                  <Typography
-                                    variant="body2"
-                                    sx={{ fontFamily: "Kanit, sans-serif" }}
-                                  >
-                                    {image.score} คะแนน
-                                  </Typography>
-                                </Box>
-                              </Grid>
-                            </Fragment>
-                          ))
-                          : null}
+                                  {images.current[index].score} คะแนน
+                                </Typography>
+                                <IconButton aria-label="more options">
+                                  <MoreVertIcon />
+                                </IconButton>
+                              </Box>
+                            </Grid>
+                          </Fragment>
+                        ))}
+                        {images.current.length < 5 && (
+                          <Grid item xs={2.4} lg={2.4}>
+                            <Box
+                              sx={{
+                                position: "relative",
+                                width: "100%",
+                                height: 0,
+                                paddingBottom: "100%",
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  width: "100%",
+                                  height: "100%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <IconButton aria-label="add" onClick={navigateToPicture}>
+                                  <AddIcon />
+                                </IconButton>
+                              </div>
+                            </Box>
+                          </Grid>
+                        )}
                       </Grid>
                     </Box>
                   </Container>

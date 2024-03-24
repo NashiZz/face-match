@@ -5,6 +5,7 @@ import { memeMashService } from "../../service";
 import { UploadPostRespone } from "../../model/uploadPostRespone";
 import axios from "axios";
 import { PostUserRespone } from "../../model/postUserRespone";
+import { string } from "prop-types";
 
 function EditProfilePage() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function EditProfilePage() {
   // console.log(user)
   const service = new memeMashService();
   const [avatar, setAvatar] = useState(user?.img_avatar);
+  const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
   const [file, setFile] = useState<File>();
   const username = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
@@ -37,8 +39,8 @@ function EditProfilePage() {
     }
   }
 
-  async function loadImge() {
-    if (file) {
+  async function loadImge()  {
+      if (file) {
       console.log("uploading...");
       const url = "http://localhost:3000/upload";
       const body = {
@@ -49,15 +51,26 @@ function EditProfilePage() {
           "Content-Type": "multipart/form-data",
         },
       });
-      const result = response.data;
-      // setAvatar("http://localhost:3000"+result.filename);
+      return response.data;
+      
     }
+
+    
   }
   function navigateToBack() {
     navigate("/profile");
   }
   async function btnEditData (username:string,password:string){
+    const ress = await loadImge()
+    // setAvatarUpload("http://localhost:3000"+ress.filename);
+    // console.log();
     
+    const res = await service.putEditProfile(username,password,+user!.id_user,"http://localhost:3000"+ress.filename);
+    //     setImagesData(res);
+    if(res==200){
+      localStorage.setItem("img_avatar","http://localhost:3000"+ress.filename)
+      navigate("/profile");
+    }
 
   }
 
@@ -150,7 +163,10 @@ function EditProfilePage() {
               variant="contained"
               sx={{ fontFamily: "Kanit, sans-serif" }}
               onClick={() => {
+              
               if (username.current && pwd.current) {
+                console.log(username.current);
+                console.log(pwd.current);
                 btnEditData(username.current.value, pwd.current.value);
               }
             }}

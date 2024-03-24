@@ -39,6 +39,8 @@ function ProfilePage() {
       if (usert) {
         const u: PostUserRespone = JSON.parse(usert);
         user.current = u;
+        // console.log(user.current.img_avatar);
+        
         const res: GetImageRespone[] = await service.getReqImage();
         const image: GetImageRespone[] | [] = res.filter(
           (image: { id_user: number | undefined }) =>
@@ -71,7 +73,7 @@ function ProfilePage() {
                   <Grid item xs={5} md={4} lg={3} sx={{ marginRight: 10 }}>
                     <img
                       style={{ borderRadius: "50%", width: "100%" }}
-                      src={user.current?.img_avatar}
+                      src={localStorage.getItem("img_avatar")?.toString()}
                       alt=""
                     />
                   </Grid>

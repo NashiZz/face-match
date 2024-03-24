@@ -29,7 +29,7 @@ function ProfilePage() {
     navigate("/picture");
   }
 
-  function navigateToGraph(id_img:number) {
+  function navigateToGraph(id_img: number) {
     navigate(`/graph/${id_img}`);
   }
 
@@ -56,124 +56,126 @@ function ProfilePage() {
   }, []);
   return (
     <>
-      <div className="bg-profile">
-        <Container fixed style={{ minHeight:"100vh" }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                spacing={2}
-                style={{ marginTop: 120 }}
-              >
-                <Grid item xs={5} md={4} lg={3} sx={{ marginRight: 10 }}>
-                  <img
-                    style={{ borderRadius: "50%", width: "100%" }}
-                    src={user.current?.img_avatar}
-                    alt=""
-                  />
-                </Grid>
+      <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
+        <div className="bg-slate-50 rounded-md" style={{ width: "1200px", maxHeight: "1000px" }} >
+          <Container fixed>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
                 <Grid
-                  item xs={8} md={5} lg={6.5}
-                  sx={{ fontSize: { xs: 18, md: 25 } }}
+                  container
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={2}
+                  style={{ marginTop: 20 }}
                 >
-                  <Box>
-                    <Box
-                    className="mb-8"
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <h3 className="kanit-regular">
-                        {localStorage.getItem("username")}
-                      </h3>
-                      <Box sx={{ marginLeft: 2, display: "flex" }}>
-                        <Button
-                          variant="contained"
-                          onClick={navigateToEdit}
-                          sx={{
-                            fontFamily: "Kanit, sans-serif",
-                            fontSize: { xs: 10, md: 14 },
-                          }}
-                        >
-                          แก้ไขโปรไฟล์
-                        </Button>
-                        <Button
-                          variant="contained"
-                          onClick={navigateToPicture}
-                          sx={{
-                            fontFamily: "Kanit, sans-serif",
-                            fontSize: { xs: 10, md: 14 },
-                            marginLeft: 2,
-                          }}
-                        >
-                          แก้ไขรูปภาพ
-                        </Button>
+                  <Grid item xs={5} md={4} lg={3} sx={{ marginRight: 10 }}>
+                    <img
+                      style={{ borderRadius: "50%", width: "100%" }}
+                      src={user.current?.img_avatar}
+                      alt=""
+                    />
+                  </Grid>
+                  <Grid
+                    item xs={8} md={5} lg={6.5}
+                    sx={{ fontSize: { xs: 18, md: 25 } }}
+                  >
+                    <Box>
+                      <Box
+                        className="mb-8"
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <h3 className="kanit-regular">
+                          {localStorage.getItem("username")}
+                        </h3>
+                        <Box sx={{ marginLeft: 2, display: "flex" }}>
+                          <Button
+                            variant="contained"
+                            onClick={navigateToEdit}
+                            sx={{
+                              fontFamily: "Kanit, sans-serif",
+                              fontSize: { xs: 10, md: 14 },
+                            }}
+                          >
+                            แก้ไขโปรไฟล์
+                          </Button>
+                          <Button
+                            variant="contained"
+                            onClick={navigateToPicture}
+                            sx={{
+                              fontFamily: "Kanit, sans-serif",
+                              fontSize: { xs: 10, md: 14 },
+                              marginLeft: 2,
+                            }}
+                          >
+                            แก้ไขรูปภาพ
+                          </Button>
+                        </Box>
                       </Box>
-                    </Box>
-                    <Divider sx={{ marginTop: -1 }} />
-                    <Box
-                      sx={{
-                        marginTop: 1,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <h5
-                        className="kanit-regular"
-                        style={{
-                          marginRight: 2,
-                          fontWeight: "bold",
-                          fontSize: 16,
+                      <Divider sx={{ marginTop: -1 }} />
+                      <Box
+                        sx={{
+                          marginTop: 1,
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
                         }}
                       >
-                        คะแนนทั้งหมด :{" "}
-                      </h5>
-                      <h5
-                        className="kanit-regular"
-                        style={{
-                          marginRight: 2,
-                          fontWeight: "bold",
-                          fontSize: 16,
-                        }}
-                      >
-                        {sumScore}
-                      </h5>
-                      <h5
-                        className="kanit-regular"
-                        style={{ fontWeight: "bold", fontSize: 16 }}
-                      >
-                        Point
-                      </h5>
+                        <h5
+                          className="kanit-regular"
+                          style={{
+                            marginRight: 2,
+                            fontWeight: "bold",
+                            fontSize: 16,
+                          }}
+                        >
+                          คะแนนทั้งหมด :{" "}
+                        </h5>
+                        <h5
+                          className="kanit-regular"
+                          style={{
+                            marginRight: 2,
+                            fontWeight: "bold",
+                            fontSize: 16,
+                          }}
+                        >
+                          {sumScore}
+                        </h5>
+                        <h5
+                          className="kanit-regular"
+                          style={{ fontWeight: "bold", fontSize: 16 }}
+                        >
+                          Point
+                        </h5>
+                      </Box>
+                      <Grid item xs={12} sx={{ marginTop: 1 }}>
+                        {/* <p style={{ fontFamily: 'Kanit, sans-serif' }}> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt itaque natus facilis ut ratione eaque eum impedit voluptatum nulla nostrum, delectus sequi suscipit cum, excepturi minus nobis. Amet, ea fuga.</p> */}
+                      </Grid>
                     </Box>
-                    <Grid item xs={12} sx={{ marginTop: 1 }}>
-                      {/* <p style={{ fontFamily: 'Kanit, sans-serif' }}> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt itaque natus facilis ut ratione eaque eum impedit voluptatum nulla nostrum, delectus sequi suscipit cum, excepturi minus nobis. Amet, ea fuga.</p> */}
-                    </Grid>
-                  </Box>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12} sx={{ marginTop: 5 }}>
-                <Divider />
-                <Container fixed sx={{ marginTop: 5 }}>
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Grid
-                      container
-                      spacing={3}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {images.current
-                        ? images.current.map((image) => (
+                <Grid item xs={12} sx={{ marginTop: 5 }}>
+                  <Divider />
+                  <Container fixed sx={{ marginTop: 5 }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Grid
+                        container
+                        spacing={3}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        {images.current
+                          ? images.current.map((image) => (
                             <Fragment key={image.id_img}>
                               <Grid item xs={3.5} lg={2.4}>
                                 <Box
+                                  className="cursor-pointer transition-transform transform hover:scale-110"
                                   sx={{
                                     position: "relative",
                                     width: "100%",
@@ -194,8 +196,8 @@ function ProfilePage() {
                                     }}
                                     src={image.img}
                                     alt=""
-                                    onClick={()=>{
-                                        navigateToGraph(image.id_img)
+                                    onClick={() => {
+                                      navigateToGraph(image.id_img)
                                     }}
                                   />
                                 </Box>
@@ -220,14 +222,15 @@ function ProfilePage() {
                               </Grid>
                             </Fragment>
                           ))
-                        : null}
-                    </Grid>
-                  </Box>
-                </Container>
+                          : null}
+                      </Grid>
+                    </Box>
+                  </Container>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
-        </Container>
+            </Box>
+          </Container>
+        </div>
       </div>
     </>
   );

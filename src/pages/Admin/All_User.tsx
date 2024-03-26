@@ -21,28 +21,28 @@ function AllUserPage() {
     };
     useEffect(() => {
         const loadDataAsync = async () => {
-          if (localStorage.getItem("username") == "") {
-            localStorage.setItem("username", "บุคคลนิรนาม")
-          }
-          const res = await service.getReqImage();
-          pics.current = res;
-          console.log(pics.current);
-          
-          // console.log(pics.current);
-          
+            if (localStorage.getItem("username") == "") {
+                localStorage.setItem("username", "บุคคลนิรนาม")
+            }
+            const res = await service.getReqImage();
+            pics.current = res;
+            console.log(pics.current);
+
+            // console.log(pics.current);
+
         };
         loadDataAsync();
-      }, []);
-      function navigateToGraph(id_img: number) {
+    }, []);
+    function navigateToGraph(id_img: number) {
         navigate(`/graph/${id_img}`);
-      }
+    }
     return (
         <div className="flex justify-center items-center bg-primary w-screen h-screen bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500">
             <div className="px-5 py-5 bg-[#F5F7F8] shadow-2xl rounded-2xl w-2/3 h-4/5 overflow-y-scroll">
                 <div className="w-fit p-3 rounded-md flex justify-start items-center gap-4 shadow-md shadow-slate-300">
                     <div className="flex justify-center items-center gap-12">
                         <img
-                            src={adminData[0].img} 
+                            src={adminData[0].img}
                             className="h-16 w-16 object-cover rounded-full"
                             alt={adminData[0].username}
                         />
@@ -51,7 +51,7 @@ function AllUserPage() {
                                 {adminData[0].username} {/* แสดงชื่อของผู้ดูแลระบบ */}
                             </div>
                             <div className="text-base font-medium text-start">
-                                Type : Admin 
+                                Type : Admin
                             </div>
                         </div>
                     </div>
@@ -72,17 +72,17 @@ function AllUserPage() {
                             <TabPanel className="h-full" value="1">
                                 <div className="max-h-[550px] grid grid-cols-4 gap-2 pb-2">
                                     {pics.current.map((image, index) => (
-                                        <div key={index} className="col-span-1 shadow-md rounded-md bg-white pb-1" onClick={()=>{
+                                        <div key={index} className="col-span-1 shadow-md rounded-md bg-white pb-1" onClick={() => {
                                             navigateToGraph(image.id_img);
                                         }}>
                                             <div className="overflow-hidden rounded-t-md"
-                                                    
+
                                             >
                                                 <img
                                                     className="rounded-t-md h-64 w-full object-cover transition duration-300 hover:scale-110"
                                                     src={image.img}
                                                     alt={image.name}
-                                                    
+
                                                 />
                                             </div>
 
@@ -93,6 +93,22 @@ function AllUserPage() {
                                             </div>
                                         </div>
                                     ))}
+                                </div>
+                            </TabPanel>
+                            <TabPanel className="h-full" value="2">
+                                <div className="max-h-[550px] grid grid-cols-3 gap-2 pb-2">
+                                    <div className="col-span-1 shadow-md rounded-md bg-white pb-3">
+                                        <div className="overflow-hidden rounded-t-md">
+                                            <img
+                                                className="rounded-t-md h-64 w-full object-cover transition duration-300 hover:scale-110"
+                                                src={"https://i.pinimg.com/736x/23/ce/56/23ce56a43d2aefdb1ae3aad23fb3e089.jpg"}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="pt-1 px-2">
+                                        <div className="font-bold">{"Shiba"}</div>
+                                        <div className="text-sm">{"abcd"}</div>
+                                    </div>
                                 </div>
                             </TabPanel>
                         </TabContext>

@@ -67,6 +67,7 @@ function AllUserPage() {
                                 centered
                             >
                                 <Tab value="1" label="Show all users" />
+                                <Tab value="2" label="Show UserData" />
                             </Tabs>
                             <TabPanel className="h-full" value="1">
                                 <div className="max-h-[550px] grid grid-cols-4 gap-2 pb-2">

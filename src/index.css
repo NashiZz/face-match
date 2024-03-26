@@ -40,6 +40,11 @@ body {
   }
 }
 
+
+.icon-add:hover {
+  color: white;
+}
+
 .bg-profile {
   background-color: #fff;
   background-size: cover;

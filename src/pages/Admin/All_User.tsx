@@ -1,9 +1,10 @@
-import { Grid, Pagination } from "@mui/material";
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
-import { CardCover } from "@mui/joy";
-import { SetStateAction, useState } from "react";
+import { Tab, Tabs } from "@mui/material";
+import { TabContext, TabPanel } from "@mui/lab";
+import React, { useState } from "react";
+
+const adminData = [
+    { username: 'ชินโนะสุเกะ', img: 'https://i.pinimg.com/564x/ab/db/38/abdb38ce0cfa76701a17e6b8afc5b437.jpg' },
+];
 
 const userData = [
     { username: 'น้องม่ายรู้วว', img: 'https://i.pinimg.com/564x/23/ce/56/23ce56a43d2aefdb1ae3aad23fb3e089.jpg' },
@@ -57,65 +58,74 @@ const userData = [
     { username: 'พระจันทร์และดวงดาว', img: 'https://i.pinimg.com/564x/23/ce/56/23ce56a43d2aefdb1ae3aad23fb3e089.jpg' },
     { username: 'เทพอักคี', img: 'https://i.pinimg.com/564x/23/ce/56/23ce56a43d2aefdb1ae3aad23fb3e089.jpg' },
 
-
 ];
 
-const itemsPerPage = 12; // จำนวนรายการต่อหน้า
-
 function AllUserPage() {
-    const [page, setPage] = useState(1);
+    const [value, setValue] = useState("1");
 
-    const handleChange = (_event: any, value: SetStateAction<number>) => {
-        setPage(value);
+    const handleChange = (_event: any, newValue: React.SetStateAction<string>) => {
+        setValue(newValue);
     };
 
-    const lastIndex = page * itemsPerPage;
-    const firstIndex = lastIndex - itemsPerPage;
-    const displayedUsers = userData.slice(firstIndex, lastIndex);
-
     return (
-        <div className="background_admin" style={{ marginTop: "50px", minHeight: "100vh" }}>
-            <Grid
-                container spacing={{ xs: 2, md: 3 }}
-                columns={{ xs: 3, sm: 9, md: 10 }}
-                style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}
-            >
-                {displayedUsers.map((data, index) => (
-                    <Grid xs={2} sm={4} md={2} key={index} style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "8px", marginTop: "90px" }}>
-                        <Card sx={{ minHeight: '150px', width: 180 }}>
-                            <CardCover>
-                                <img
-                                    src={data.img}
-                                    srcSet={data.img}
-                                    loading="lazy"
-                                    alt=""
-                                />
-                            </CardCover>
-                            <CardCover
-                                sx={{
-                                    background:
-                                        'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 50px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 100px)',
-                                }}
-                            />
-                            <CardContent sx={{ justifyContent: 'flex-end' }}>
-                                <Typography level="title-lg" textColor="#fff" sx={{ fontFamily: 'Kanit, sans-serif' }}>
-                                    {data.username}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
-            <Pagination
-                count={Math.ceil(userData.length / itemsPerPage)}
-                page={page}
-                onChange={handleChange}
-                color="primary"
-                style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)' }}
-            />
+        <div className="flex justify-center items-center bg-primary w-screen h-screen bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500">
+            <div className="px-5 py-5 bg-[#F5F7F8] shadow-2xl rounded-2xl w-2/3 h-4/5 overflow-y-scroll">
+                <div className="w-fit p-3 rounded-md flex justify-start items-center gap-4 shadow-md shadow-slate-300">
+                    <div className="flex justify-center items-center gap-12">
+                        <img
+                            src={adminData[0].img} 
+                            className="h-16 w-16 object-cover rounded-full"
+                            alt={adminData[0].username}
+                        />
+                        <div>
+                            <div className="text-3xl font-medium text-start">
+                                {adminData[0].username} {/* แสดงชื่อของผู้ดูแลระบบ */}
+                            </div>
+                            <div className="text-base font-medium text-start">
+                                Type : Admin 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <>
+                    <div className="">
+                        <TabContext value={value}>
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                textColor="secondary"
+                                indicatorColor="secondary"
+                                centered
+                            >
+                                <Tab value="1" label="Show all users" />
+                            </Tabs>
+                            <TabPanel className="h-full" value="1">
+                                <div className="max-h-[550px] grid grid-cols-4 gap-2 pb-2">
+                                    {userData.map((user, index) => (
+                                        <div key={index} className="col-span-1 shadow-md rounded-md bg-white pb-1">
+                                            <div className="overflow-hidden rounded-t-md">
+                                                <img
+                                                    className="rounded-t-md h-64 w-full object-cover transition duration-300 hover:scale-110"
+                                                    src={user.img}
+                                                    alt={user.username}
+                                                />
+                                            </div>
+
+                                            <div className="pt-1 px-2 flex flex-col justify-center items-center">
+                                                <div className="font-semibold text-lg">
+                                                    {user.username}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </TabPanel>
+                        </TabContext>
+                    </div>
+                </>
+            </div>
         </div>
     );
 }
-
 export default AllUserPage;
 

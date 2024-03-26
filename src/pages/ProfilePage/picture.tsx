@@ -1,37 +1,71 @@
-import { Box, Button, Card, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from "react-router-dom";
 
 function PicturePage() {
+    const navigate = useNavigate();
+    function navigateToBack() {
+        navigate("/profile");
+    }
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 120 }}>
-            <Card sx={{ width: 900, height: 800, display: "flex", flexDirection: "column" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", width: "100%",  marginTop: 20 }}>
-                    <h1 style={{ marginLeft: 80 }}>แก้ไขโปรไฟล์</h1>
-                    <Box sx={{ marginRight: 10, marginTop: 2 }}>
-                        <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} >กลับ</Button>
+        <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh"}}>
+            <div className="card_edit">
+                <div
+                    className="flex justify-center "
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <h1 className="text-2xl font-bold">เพิ่มรูปภาพ MEME สุดเท่</h1>
+                    <Box className="pb-8">
+                        <Button
+                            variant="contained"
+                            onClick={navigateToBack}
+                            sx={{ fontFamily: "Kanit, sans-serif" }}
+                        >
+                            กลับ
+                        </Button>
                     </Box>
                 </div>
-                <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", marginLeft: 100 }}>
-                    <Card sx={{ width: 700, height: 150, backgroundColor: "lightcyan" }}>
-                        <div className="profile-image" style={{ display: "flex",  justifyContent: "space-between" , marginLeft: 50, marginRight: 50, marginTop: 25 }}>
-                            <img src="https://i.pinimg.com/736x/f1/93/92/f193927964b8a6237d3aa5a0c587b08b.jpg" alt="profile" />
-                            <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} >แก้ไขโปรไฟล์</Button>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: 100 }}>
+                    <Box
+                        className="group hover:bg-sky-500 hover:ring-sky-500"
+                        sx={{
+                            position: "relative",
+                            width: 250,
+                            height: 250,
+                            borderRadius: "10px",
+                            overflow: "hidden",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                        <div
+                            className="icon-add"
+                            style={{
+                                position: "absolute",
+                                width: "100%",
+                                height: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer"
+                            }}
+                        >
+                            <AddIcon style={{ fontSize: "56px" }} />
                         </div>
-                    </Card>
+                    </Box>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" , marginLeft: 100, marginTop: 30 }}>
-                    <h2>ชื่อ</h2>
-                    <TextField  fullWidth style={{ width: 700}} />
-                    <h2>อีเมล</h2>
-                    <TextField  fullWidth style={{ width: 700}} />
-                    <h2>รหัสผ่าน</h2>
-                    <TextField  fullWidth style={{ width: 700}} />
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30}}>
+                <div style={{ display: "flex", flexDirection: "column", marginLeft: 100, marginTop: 30 }}>
+                    <h2>ชื่อรูปภาพ</h2>
+                    <TextField fullWidth style={{ width: 700 }} />
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30 }}>
                         <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} >บันทึก</Button>
                     </div>
                 </div>
-            </Card>
+            </div>
         </div>
-       
+
     );
 }
 

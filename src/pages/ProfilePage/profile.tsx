@@ -5,6 +5,8 @@ import {
   Divider,
   Grid,
   IconButton,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -15,8 +17,18 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { memeMashService } from "../../service";
 import { GetImageRespone } from "../../model/getImageRespone";
 import { PostUserRespone } from "../../model/postUserRespone";
+import React from "react";
 
 function ProfilePage() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const navigate = useNavigate();
   const service = new memeMashService();
   const images = useRef<GetImageRespone[]>([]);
@@ -36,7 +48,11 @@ function ProfilePage() {
   }
 
   useEffect(() => {
-    const loadDataAsync = async () => {
+    loadDataAsync();
+  }, []);
+
+  async function loadDataAsync() {
+    try {
       const usert = localStorage.getItem("user");
       if (usert) {
         const u: PostUserRespone = JSON.parse(usert);
@@ -55,9 +71,20 @@ function ProfilePage() {
         }
         setSumScore(sum);
       }
-    };
-    loadDataAsync();
-  }, []);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  }
+
+  async function handleDeleteImage(id: number) {
+    try {
+      await service.deleteImage(id);
+      loadDataAsync();
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
@@ -220,9 +247,20 @@ function ProfilePage() {
                                 >
                                   {images.current[index].score} คะแนน
                                 </Typography>
-                                <IconButton aria-label="more options">
+                                <IconButton aria-label="more options" onClick={handleClick}>
                                   <MoreVertIcon />
                                 </IconButton>
+                                <Menu
+                                  id="basic-menu"
+                                  anchorEl={anchorEl}
+                                  open={open}
+                                  onClose={handleClose}
+                                  MenuListProps={{
+                                    "aria-labelledby": "basic-button",
+                                  }}
+                                >
+                                  <MenuItem onClick={() => handleDeleteImage(images.current[index].id_img)}>ลบรูปภาพ</MenuItem>
+                                </Menu>
                               </Box>
                             </Grid>
                           </Fragment>
@@ -230,6 +268,7 @@ function ProfilePage() {
                         {images.current.length < 5 && (
                           <Grid item xs={2.4} lg={2.4}>
                             <Box
+                              className="group hover:bg-sky-500 hover:ring-sky-500"
                               sx={{
                                 position: "relative",
                                 width: "100%",
@@ -239,8 +278,10 @@ function ProfilePage() {
                                 overflow: "hidden",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                               }}
+                              onClick={navigateToPicture}
                             >
                               <div
+                                className="icon-add"
                                 style={{
                                   position: "absolute",
                                   width: "100%",
@@ -248,11 +289,10 @@ function ProfilePage() {
                                   display: "flex",
                                   alignItems: "center",
                                   justifyContent: "center",
+                                  cursor: "pointer"
                                 }}
                               >
-                                <IconButton aria-label="add" onClick={navigateToPicture}>
-                                  <AddIcon />
-                                </IconButton>
+                                <AddIcon style={{ fontSize: "56px" }} />
                               </div>
                             </Box>
                           </Grid>

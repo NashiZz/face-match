@@ -5,7 +5,7 @@ import { memeMashService } from "../../service";
 import { VotePostDateRes } from "../../model/votePostDateRes";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 function RankingPage() {
   const service = new memeMashService();
@@ -18,8 +18,8 @@ function RankingPage() {
   // console.log(formattedDateTimeTest);
   const date = new Date(formattedDateTimeTest);
   date.setDate(formattedDateTimeTest.getDate() - (1 - 0));
-  console.log(date);
-  
+  // console.log(date);
+
   // console.log(date.toISOString().split("T")[0]);
   const beforDate = date.toISOString().split("T")[0].toString();
 
@@ -40,6 +40,9 @@ function RankingPage() {
 
     loadDataAsync();
   }, [service]);
+  async function chekRang(i: number) {
+    await setChekData(i);
+  }
 
   return (
     <div
@@ -90,39 +93,124 @@ function RankingPage() {
                       fontWeight: "bold",
                     }}
                   >
+                    {imagesDataฺฺBefore.findIndex(
+                      (dataBef) => dataBef.id_img == data.id_img
+                    ) >= 0 ? (
+                      <>
+                        {imagesDataฺฺBefore.map((databefore, idx) => {
+                          let n = 0;
+                          console.log("start");
+                          console.log(databefore.id_img);
 
-                    {imagesDataฺฺBefore.map((databefore, idx) => {
-                      if (data.id_img === databefore.id_img) {
+                          for (let i = 0; i < imagesDataฺฺBefore.length; i++) {
+                            if (data.id_img == imagesDataฺฺBefore[i].id_img) {
+                              n = 1;
+                              console.log("กลาง");
+                            }
+                          }
+                          console.log(n);
 
-                        return (
-                          <div key={idx}>
-                            {databefore.number - (index + 1) > 0 ? (
-                              <>
-                                <ExpandLessIcon
-                                  sx={{ color: "green" }}
-                                ></ExpandLessIcon>
-                                {databefore.number - (index + 1)}
-                              </>
-                            ) : databefore.number - (index + 1) === 0 ? (
-                              <>
-                                <ArrowLeftIcon sx={{ color: "gray" }}></ArrowLeftIcon>
-                                {databefore.number - (index + 1)}
-                              </>
-                            ) : (
-                              <>
-                                <ExpandMoreIcon
-                                  sx={{ color: "red" }}
-                                ></ExpandMoreIcon>
-                                {Math.abs(databefore.number - (index + 1)) }
-                              </>
-                            )}
-                          </div>
-                        );
-                      }
-                      else {
-                        return null;
-                      }
-                    })}
+                          if (n == 1) {
+                            console.log("จบ1");
+
+                            if (data.id_img == databefore.id_img) {
+                              return (
+                                <div key={idx}>
+                                  {databefore.number - (index + 1) > 0 ? (
+                                    <>
+                                      <ExpandLessIcon
+                                        sx={{ color: "green" }}
+                                      ></ExpandLessIcon>
+                                      {databefore.number - (index + 1)}
+                                    </>
+                                  ) : databefore.number - (index + 1) === 0 ? (
+                                    <>
+                                      <ArrowLeftIcon
+                                        sx={{ color: "gray" }}
+                                      ></ArrowLeftIcon>
+                                      {databefore.number - (index + 1)}
+                                    </>
+                                  ) : (
+                                    <>
+                                      <ExpandMoreIcon
+                                        sx={{ color: "red" }}
+                                      ></ExpandMoreIcon>
+                                      {Math.abs(
+                                        databefore.number - (index + 1)
+                                      )}
+                                    </>
+                                  )}
+                                </div>
+                              );
+                            } else {
+                              return null;
+                            }
+                          } else {
+                            {
+                              imagesDataฺฺBefore.map((databefore, idx) => {
+                                let n = 0;
+                                for (
+                                  let i = 0;
+                                  i < imagesDataฺฺBefore.length;
+                                  i++
+                                ) {
+                                  if (
+                                    data.id_img == imagesDataฺฺBefore[i].id_img
+                                  ) {
+                                    n = 1;
+                                  }
+                                }
+                                console.log(n);
+                                if (n == 1) {
+                                  if (data.id_img == databefore.id_img) {
+                                    return (
+                                      <div key={idx}>
+                                        {databefore.number - (index + 1) > 0 ? (
+                                          <>
+                                            <ExpandLessIcon
+                                              sx={{ color: "green" }}
+                                            ></ExpandLessIcon>
+                                            {databefore.number - (index + 1)}
+                                          </>
+                                        ) : databefore.number - (index + 1) ===
+                                          0 ? (
+                                          <>
+                                            <ArrowLeftIcon
+                                              sx={{ color: "gray" }}
+                                            ></ArrowLeftIcon>
+                                            {databefore.number - (index + 1)}
+                                          </>
+                                        ) : (
+                                          <>
+                                            <ExpandMoreIcon
+                                              sx={{ color: "red" }}
+                                            ></ExpandMoreIcon>
+                                            {Math.abs(
+                                              databefore.number - (index + 1)
+                                            )}
+                                          </>
+                                        )}
+                                      </div>
+                                    );
+                                  } else {
+                                    return null;
+                                  }
+                                } else {
+                                  return null;
+                                }
+                              });
+                            }
+                          }
+                        })}
+                      </>
+                    ) : (
+                      <>
+                        <ExpandLessIcon
+                          sx={{ color: "green" }}
+                        ></ExpandLessIcon>
+                        {imagesData.length - (index + 1)}
+                      </>
+                    )}
                   </TableCell>
                   <TableCell>
                     <Box
@@ -174,10 +262,12 @@ function RankingPage() {
                               </>
                             ) : data.score - databefore.score === 0 ? (
                               <>
-                                <ArrowLeftIcon sx={{ color: "gray" }}></ArrowLeftIcon>
+                                <ArrowLeftIcon
+                                  sx={{ color: "gray" }}
+                                ></ArrowLeftIcon>
                                 {data.score - databefore.score}
                               </>
-                            ):(
+                            ) : (
                               <>
                                 <ExpandMoreIcon
                                   sx={{ color: "red" }}

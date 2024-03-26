@@ -253,7 +253,7 @@ function HomePage() {
     };
     // console.log(P1?.id_img,P2?.id_img,localStorage.getItem("username"));
 
-    await delay(10000);
+    await delay(5000);
     setChekShowP(0);
     setChekVote(0);
     loadNextImg();

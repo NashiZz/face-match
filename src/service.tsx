@@ -42,6 +42,20 @@ export class memeMashService {
       throw error;
     }
   }
+  async getUsersByType(userType: string) {
+    try {
+      const url = `${HOST}/usersByType/${userType}`;
+      const response = await axios.get(url);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error("Failed to get users by type");
+      }
+    } catch (error) {
+      console.error("Error getting users by type:", error);
+      throw error;
+    }
+  }
   async getReqImage() {
     const url = HOST + "/image";
     const response = await axios.get(url);

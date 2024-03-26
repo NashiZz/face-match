@@ -5,6 +5,7 @@ import { ImgeVoteGetRes } from "./model/ImgeVoteGetRes";
 import { ImgeVoteGetYlabelRes } from "./model/ImgeVoteGetYlabelRes";
 import { UploadPostRespone } from "./model/uploadPostRespone";
 import { VotePostDateRes } from "./model/votePostDateRes";
+import { UserGetRes } from "./model/userGetRes";
 
 const HOST: string = "http://localhost:3000";
 export class memeMashService {
@@ -203,6 +204,16 @@ export class memeMashService {
       return response.status
     } else {
       return response.status;
+    }
+  }
+  async getUserRes() {
+    const url = HOST + "/user";
+    const response = await axios.get(url);
+    if (response.status == 200) {
+      const image: UserGetRes[] = response.data;
+      return image
+    } else {
+      return [];
     }
   }
 }

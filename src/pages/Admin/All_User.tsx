@@ -9,8 +9,6 @@ const adminData = [
     { username: 'ชินโนะสุเกะ', img: 'https://i.pinimg.com/564x/ab/db/38/abdb38ce0cfa76701a17e6b8afc5b437.jpg' },
 ];
 
-
-
 function AllUserPage() {
     const navigate = useNavigate();
     const [value, setValue] = useState("1");
@@ -96,19 +94,29 @@ function AllUserPage() {
                                 </div>
                             </TabPanel>
                             <TabPanel className="h-full" value="2">
-                                <div className="max-h-[550px] grid grid-cols-3 gap-2 pb-2">
-                                    <div className="col-span-1 shadow-md rounded-md bg-white pb-3">
-                                        <div className="overflow-hidden rounded-t-md">
-                                            <img
-                                                className="rounded-t-md h-64 w-full object-cover transition duration-300 hover:scale-110"
-                                                src={"https://i.pinimg.com/736x/23/ce/56/23ce56a43d2aefdb1ae3aad23fb3e089.jpg"}
-                                            />
+                            <div className="max-h-[550px] grid grid-cols-4 gap-2 pb-2">
+                                    {pics.current.map((image, index) => (
+                                        <div key={index} className="col-span-1 shadow-md rounded-md bg-white pb-1" onClick={() => {
+                                            navigateToGraph(image.id_img);
+                                        }}>
+                                            <div className="overflow-hidden rounded-t-md"
+
+                                            >
+                                                <img
+                                                    className="rounded-t-md h-64 w-full object-cover transition duration-300 hover:scale-110"
+                                                    src={image.img}
+                                                    alt={image.name}
+
+                                                />
+                                            </div>
+
+                                            <div className="pt-1 px-2 flex flex-col justify-center items-center">
+                                                <div className="font-semibold text-lg">
+                                                    {image.name}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="pt-1 px-2">
-                                        <div className="font-bold">{"Shiba"}</div>
-                                        <div className="text-sm">{"abcd"}</div>
-                                    </div>
+                                    ))}
                                 </div>
                             </TabPanel>
                         </TabContext>

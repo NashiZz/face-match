@@ -18,6 +18,7 @@ function EditProfilePage() {
   const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
   const [file, setFile] = useState<File>();
   const username = useRef<HTMLInputElement>();
+  const urlAavar = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
 
   useEffect(() => {
@@ -60,15 +61,15 @@ function EditProfilePage() {
   function navigateToBack() {
     navigate("/profile");
   }
-  async function btnEditData (username:string,password:string){
-    const ress = await loadImge()
+  async function btnEditData (username:string,password:string,image:string){
+    // const ress = await loadImge()
     // setAvatarUpload("http://localhost:3000"+ress.filename);
     // console.log();
     
-    const res = await service.putEditProfile(username,password,+user!.id_user,"http://localhost:3000"+ress.filename);
+    const res = await service.putEditProfile(username,password,+user!.id_user,image);
     //     setImagesData(res);
     if(res==200){
-      localStorage.setItem("img_avatar","http://localhost:3000"+ress.filename)
+      localStorage.setItem("img_avatar",image)
       navigate("/profile");
     }
 
@@ -102,7 +103,7 @@ function EditProfilePage() {
             alignItems: "center",
           }}
         >
-          <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "center", width: 700, height: 200, backgroundColor: "lightcyan" }}>
+          <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "center", width: 700, height: 250, backgroundColor: "lightcyan" }}>
             <div
               className="profile-image"
               style={{
@@ -116,7 +117,7 @@ function EditProfilePage() {
               <img src={avatar} alt="profile" />
 
             </div>
-            <div>
+            {/* <div>
               <Button
                 variant="contained"
                 sx={{ fontFamily: "Kanit, sans-serif" }}
@@ -130,7 +131,14 @@ function EditProfilePage() {
                 onChange={selectFile}
                 style={{ display: "none" }}
               />
-            </div>
+            </div> */}
+            <TextField
+            fullWidth
+            style={{ width: 400 }}
+            defaultValue={user?.img_avatar}
+            inputRef={urlAavar}
+            
+          />
           </Card>
         </div>
         <div
@@ -167,7 +175,7 @@ function EditProfilePage() {
               if (username.current && pwd.current) {
                 console.log(username.current);
                 console.log(pwd.current);
-                btnEditData(username.current.value, pwd.current.value);
+                btnEditData(username.current.value, pwd.current.value,urlAavar.current!.value);
               }
             }}
             >

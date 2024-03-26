@@ -10,10 +10,10 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 function RankingPage() {
   const service = new memeMashService();
   const [imagesData, setImagesData] = useState<GetImageRespone[]>([]);
-  const [imagesDataฺฺBefore, setImagesDataBefore] = useState<VotePostDateRes[]>(
+  const [imagesDataBefore, setImagesDataBefore] = useState<VotePostDateRes[]>(
     []
   );
-  const [ChekData, setChekData] = useState(0);
+
   const formattedDateTimeTest = new Date();
   // console.log(formattedDateTimeTest);
   const date = new Date(formattedDateTimeTest);
@@ -40,9 +40,6 @@ function RankingPage() {
 
     loadDataAsync();
   }, [service]);
-  async function chekRang(i: number) {
-    await setChekData(i);
-  }
 
   return (
     <div
@@ -93,17 +90,17 @@ function RankingPage() {
                       fontWeight: "bold",
                     }}
                   >
-                    {imagesDataฺฺBefore.findIndex(
+                    {imagesDataBefore.findIndex(
                       (dataBef) => dataBef.id_img == data.id_img
                     ) >= 0 ? (
                       <>
-                        {imagesDataฺฺBefore.map((databefore, idx) => {
+                        {imagesDataBefore.map((databefore, idx) => {
                           let n = 0;
                           console.log("start");
                           console.log(databefore.id_img);
 
-                          for (let i = 0; i < imagesDataฺฺBefore.length; i++) {
-                            if (data.id_img == imagesDataฺฺBefore[i].id_img) {
+                          for (let i = 0; i < imagesDataBefore.length; i++) {
+                            if (data.id_img == imagesDataBefore[i].id_img) {
                               n = 1;
                               console.log("กลาง");
                             }
@@ -147,15 +144,15 @@ function RankingPage() {
                             }
                           } else {
                             {
-                              imagesDataฺฺBefore.map((databefore, idx) => {
+                              imagesDataBefore.map((databefore, idx) => {
                                 let n = 0;
                                 for (
                                   let i = 0;
-                                  i < imagesDataฺฺBefore.length;
+                                  i < imagesDataBefore.length;
                                   i++
                                 ) {
                                   if (
-                                    data.id_img == imagesDataฺฺBefore[i].id_img
+                                    data.id_img == imagesDataBefore[i].id_img
                                   ) {
                                     n = 1;
                                   }
@@ -249,7 +246,7 @@ function RankingPage() {
                   <TableCell
                     sx={{ fontFamily: "Kanit, sans-serif", fontSize: 16 }}
                   >
-                    {imagesDataฺฺBefore.map((databefore, idx) => {
+                    {imagesDataBefore.map((databefore, idx) => {
                       if (data.id_img === databefore.id_img) {
                         return (
                           <div key={idx}>
@@ -260,14 +257,7 @@ function RankingPage() {
                                 ></ExpandLessIcon>
                                 {data.score - databefore.score}
                               </>
-                            ) : data.score - databefore.score === 0 ? (
-                              <>
-                                <ArrowLeftIcon
-                                  sx={{ color: "gray" }}
-                                ></ArrowLeftIcon>
-                                {data.score - databefore.score}
-                              </>
-                            ) : (
+                            ): (
                               <>
                                 <ExpandMoreIcon
                                   sx={{ color: "red" }}

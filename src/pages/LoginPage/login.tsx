@@ -22,7 +22,7 @@ function LoginPage() {
     if (user?.status == "user") {
       navigate("/");
     } else if (user?.status == "admin") {
-      navigate("/admin");
+      navigate("/admin_all_user");
     } else {
       console.log("รหัสผ่านผิด");
     }

@@ -1,11 +1,24 @@
 import { Box, Button, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { memeMashService } from "../../service";
 
 function PicturePage() {
     const navigate = useNavigate();
+    const iduser = localStorage.getItem("id_user")
+    const service = new memeMashService();
+    const name = useRef<HTMLInputElement>();
+    const [Img, setImg] = useState("");
     function navigateToBack() {
         navigate("/profile");
+    }
+    async function bntAddImage (img:string,name:string){
+        const res = await service.postImage(img,+iduser!,name);
+    //     setImagesData(res);
+    if(res==200){
+      navigate("/profile");
+    }
     }
     return (
         <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh"}}>
@@ -42,6 +55,10 @@ function PicturePage() {
                     >
                         <div
                             className="icon-add"
+                            onClick={()=>{
+                                const url = prompt("Image URL:");
+                                setImg(url!)
+                            }}
                             style={{
                                 position: "absolute",
                                 width: "100%",
@@ -58,9 +75,11 @@ function PicturePage() {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", marginLeft: 100, marginTop: 30 }}>
                     <h2>ชื่อรูปภาพ</h2>
-                    <TextField fullWidth style={{ width: 700 }} />
+                    <TextField fullWidth style={{ width: 700 }} inputRef={name}/>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30 }}>
-                        <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} >บันทึก</Button>
+                        <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} onClick={()=>{
+                            bntAddImage(Img,name.current!.value);
+                        }}>บันทึก</Button>
                     </div>
                 </div>
             </div>

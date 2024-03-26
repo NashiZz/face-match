@@ -176,4 +176,19 @@ export class memeMashService {
         return response.status;
     }
   }
+  async postImage(img: string, id_user:number,name:string) {
+    const url = HOST + "/image";
+    const body = {
+      img:img,
+      id_user:id_user,
+      name:name,
+      score:1000
+    }
+    const response = await axios.post(url, body);
+    if (response.status == 200) {
+      return response.status
+    } else {
+      return response.status;
+    }
+  }
 }

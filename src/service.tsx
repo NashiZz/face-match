@@ -156,4 +156,24 @@ export class memeMashService {
       return [];
     }
   }
+  async putEditProfile(username: string, password: string,id:number,img:string) {
+    const url = HOST + "/user/editProfile";
+    const body = {
+      id_user:id,
+      username:username,
+      email:"",
+      password:password,
+      img_avatar:img,
+      status:"" 
+    }
+    // console.log(body.img_avatar);
+    
+    const response = await axios.put(url,body);
+    if(response.status==200){
+        console.log(body.img_avatar);
+        return response.status
+    }else{
+        return response.status;
+    }
+  }
 }

@@ -18,6 +18,8 @@ function RankingPage() {
   // console.log(formattedDateTimeTest);
   const date = new Date(formattedDateTimeTest);
   date.setDate(formattedDateTimeTest.getDate() - (1 - 0));
+  console.log(date);
+  
   // console.log(date.toISOString().split("T")[0]);
   const beforDate = date.toISOString().split("T")[0].toString();
 

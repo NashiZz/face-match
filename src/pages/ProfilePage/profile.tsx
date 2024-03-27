@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -20,6 +21,7 @@ import { PostUserRespone } from "../../model/postUserRespone";
 import React from "react";
 
 function ProfilePage() {
+  const [loading, setLoading] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,12 +55,13 @@ function ProfilePage() {
 
   async function loadDataAsync() {
     try {
+      setLoading(true);
       const usert = localStorage.getItem("user");
       if (usert) {
         const u: PostUserRespone = JSON.parse(usert);
         user.current = u;
         // console.log(user.current.img_avatar);
-        
+
         const res: GetImageRespone[] = await service.getReqImage();
         const image: GetImageRespone[] | [] = res.filter(
           (image: { id_user: number | undefined }) =>
@@ -71,8 +74,10 @@ function ProfilePage() {
         }
         setSumScore(sum);
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error loading data:", error);
+      setLoading(false);
     }
   }
 
@@ -87,6 +92,11 @@ function ProfilePage() {
 
   return (
     <>
+      {loading && ( 
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+          <CircularProgress />
+        </div>
+      )}
       <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
         <div className="bg-slate-50 rounded-md" style={{ width: "1200px", height: "700px" }} >
           <Container fixed>
@@ -101,7 +111,7 @@ function ProfilePage() {
                 >
                   <Grid item xs={3} md={3} lg={3} sx={{ marginRight: 10 }}>
                     <img
-                      style={{ borderRadius: "50%", width: "100%" }}
+                      style={{ borderRadius: "50%", width: "100%", objectFit: "cover"}}
                       src={localStorage.getItem("img_avatar")?.toString()}
                       alt=""
                     />
@@ -132,17 +142,6 @@ function ProfilePage() {
                             }}
                           >
                             แก้ไขโปรไฟล์
-                          </Button>
-                          <Button
-                            variant="contained"
-                            onClick={navigateToPicture}
-                            sx={{
-                              fontFamily: "Kanit, sans-serif",
-                              fontSize: { xs: 10, md: 14 },
-                              marginLeft: 2,
-                            }}
-                          >
-                            แก้ไขรูปภาพ
                           </Button>
                         </Box>
                       </Box>

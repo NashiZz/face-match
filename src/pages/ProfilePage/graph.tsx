@@ -164,13 +164,13 @@ function GraphPage() {
                                           อันดับที่ {image.number} &nbsp;&nbsp;
                                           <ExpandLessIcon
                                             sx={{ color: "green" }}
-                                          ></ExpandLessIcon> 
+                                          ></ExpandLessIcon>
                                           {databefore.number - image.number}
                                         </>
                                       ) : databefore.number - image.number ===
                                         0 ? (
                                         <>
-                                           อันดับที่ {image.number} &nbsp;&nbsp;
+                                          อันดับที่ {image.number} &nbsp;&nbsp;
                                           <ArrowLeftIcon
                                             sx={{ color: "gray" }}
                                           ></ArrowLeftIcon>
@@ -214,7 +214,7 @@ function GraphPage() {
                                         return (
                                           <div key={idx}>
                                             {databefore.number - image.number >
-                                            0 ? (
+                                              0 ? (
                                               <>
                                                 อันดับที่ {image.number} &nbsp;&nbsp;
                                                 <ExpandLessIcon
@@ -224,7 +224,7 @@ function GraphPage() {
                                                   image.number}
                                               </>
                                             ) : databefore.number -
-                                                  image.number ===
+                                              image.number ===
                                               0 ? (
                                               <>
                                                 อันดับที่ {image.number} &nbsp;&nbsp;
@@ -265,7 +265,7 @@ function GraphPage() {
                             <ExpandLessIcon
                               sx={{ color: "green" }}
                             ></ExpandLessIcon>
-                            {imagesDataTotal.length - image.number} 
+                            {imagesDataTotal.length - image.number}
                           </>
                         )}
                       </Box>

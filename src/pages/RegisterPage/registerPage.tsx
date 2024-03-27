@@ -1,13 +1,11 @@
 import { Button, TextField } from "@mui/material";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { memeMashService } from "../../service";
-import axios from "axios";
 
 function Register_Page() {
-    const HOST: string = "http://localhost:3000";
 
-    const [avatarFile, setAvatarFile] = useState<File | null>(null);
+    // const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const username = useRef<HTMLInputElement>();
     const email = useRef<HTMLInputElement>();
     const password = useRef<HTMLInputElement>();
@@ -21,6 +19,7 @@ function Register_Page() {
             email: email.current?.value || "",
             password: password.current?.value || "",
             conpassword: conpassword.current?.value || "",
+            img_avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
         };
         if (!userData.username || !userData.email || !userData.password) {
             console.error("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -33,20 +32,20 @@ function Register_Page() {
         }
 
         try {
-            let img_avatar = "";
-            if (avatarFile) {
-                const formData = new FormData();
-                formData.append("file", avatarFile);
-                try {
-                    const response = await axios.post(HOST + "/upload", formData);
-                    img_avatar = response.data.filename;
+            // let img_avatar = "";
+            // if (avatarFile) {
+            //     const formData = new FormData();
+            //     formData.append("file", avatarFile);
+            //     try {
+            //         const response = await axios.post(HOST + "/upload", formData);
+            //         img_avatar = response.data.filename;
 
-                } catch (error) {
-                    console.error("Error uploading file:", error);
-                }
-            }
+            //     } catch (error) {
+            //         console.error("Error uploading file:", error);
+            //     }
+            // }
 
-            const response = await service.registerUser(userData.username, userData.email, userData.password, img_avatar);
+            const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
 
             if (!response) {
                 throw new Error("เกิดข้อผิดพลาดในการลงทะเบียนผู้ใช้");
@@ -69,21 +68,21 @@ function Register_Page() {
         }
     }
 
-    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const imageUrl = e.target?.result as string;
-                const previewImg = document.querySelector("#preview") as HTMLImageElement;
-                if (previewImg) {
-                    previewImg.src = imageUrl;
-                }
-            };
-            reader.readAsDataURL(file);
-            setAvatarFile(file);
-        }
-    }
+    // function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    //     const file = event.target.files?.[0];
+    //     if (file) {
+    //         const reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             const imageUrl = e.target?.result as string;
+    //             const previewImg = document.querySelector("#preview") as HTMLImageElement;
+    //             if (previewImg) {
+    //                 previewImg.src = imageUrl;
+    //             }
+    //         };
+    //         reader.readAsDataURL(file);
+    //         setAvatarFile(file);
+    //     }
+    // }
 
     return (
         <div className="kanit-regular flex justify-center items-center bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500"
@@ -94,9 +93,8 @@ function Register_Page() {
                     <img />
                     <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
                         <img id="preview" alt="Image Preview" style={{ borderRadius: "50%", border: "2px solid #191919", color: "GrayText" }} width={140}
-                            src={avatarFile ? URL.createObjectURL(avatarFile) : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
+                            src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
                         />
-                        <input type="file" accept="image/*" onChange={handleFileChange} />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row' }} className='input-box'>
                         <TextField label='ชื่อผู้ใช้' inputRef={username} fullWidth />

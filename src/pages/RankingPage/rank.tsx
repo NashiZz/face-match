@@ -57,7 +57,6 @@ function RankingPage() {
       <div className="bg-slate-50 rounded-md">
         {isLoading ? (
           <div className="flex justify-center items-center" style={{ minHeight: "650px" }}>
-
             <CircularProgress color="primary" />
           </div>
         ) : (

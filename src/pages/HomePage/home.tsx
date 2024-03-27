@@ -5,13 +5,16 @@ import { Box } from "@mui/system";
 import VsImage from "../../assets/img/Vs.png";
 import { CircularProgress } from "@mui/material";
 import { Link, useNavigate,  } from "react-router-dom";
+import { ClientJS } from 'clientjs';
 
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
 }
 function HomePage() {
+  const client = new ClientJS();
   const service = new memeMashService();
   const pics = useRef<GetImageRespone[]>([]);
+  const fgprint = useRef("");
   const [P1, setP1] = useState<GetImageRespone | undefined>(undefined);
   const [P2, setP2] = useState<GetImageRespone | undefined>(undefined);
   const [score1, setScore1] = useState(P1?.score);
@@ -37,7 +40,12 @@ function HomePage() {
       if (localStorage.getItem("username") == "") {
         localStorage.setItem("username", "บุคคลนิรนาม")
       }
-      const res = await service.getReqImage();
+      const fg = client.getFingerprint();
+      fgprint.current = fg.toString();
+      // console.log(fg);
+      const resCooldown = await service.getResCooldown();
+      const res = await service.getForVote(fg.toString(),resCooldown);
+      console.log(res);
       const imgs = shuffleImages(res);
       pics.current = imgs;
       // console.log(pics.current);
@@ -298,11 +306,11 @@ function HomePage() {
     }
     const res1 = await service.putReqImageID(P1!.id_img, P1!.img, P1!.id_user, P1!.name, Math.round(RA));
     if (res1 == 200) {
-      service.postReqVote(P1!.id_img, localStorage.getItem("username")!.toString(), Math.round(RA))
+      service.postReqVote(P1!.id_img, localStorage.getItem("username")!.toString(), Math.round(RA),fgprint.current)
     };
     const res2 = await service.putReqImageID(P2!.id_img, P2!.img, P2!.id_user, P2!.name, Math.round(RB));
     if (res2 == 200) {
-      service.postReqVote(P2!.id_img, localStorage.getItem("username")!.toString(), Math.round(RB))
+      service.postReqVote(P2!.id_img, localStorage.getItem("username")!.toString(), Math.round(RB),fgprint.current)
     };
     // console.log(P1?.id_img,P2?.id_img,localStorage.getItem("username"));
 

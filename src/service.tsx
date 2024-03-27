@@ -7,7 +7,8 @@ import { UploadPostRespone } from "./model/uploadPostRespone";
 import { VotePostDateRes } from "./model/votePostDateRes";
 import { UserGetRes } from "./model/userGetRes";
 
-const HOST: string = "https://backend-mememash.onrender.com";
+// const HOST: string = "https://backend-mememash.onrender.com";
+const HOST: string = "http://localhost:3000";
 export class memeMashService {
   async getLogin(email: string, password: string) {
     const url = HOST + "/login";
@@ -103,18 +104,34 @@ export class memeMashService {
     }
 
   }
-  async postReqVote(id_img: number, username: string, score: number) {
+  async postReqVote(id_img: number, username: string, score: number,fgPrint:string) {
     const url = HOST + "/vote";
     const body = {
       id_img: id_img,
       username: username,
-      score: score
+      score: score,
+      fgPrint:fgPrint
     }
     const response = await axios.post(url, body);
     if (response.status == 200) {
       return response.status
     } else {
       return null;
+    }
+
+  }
+  async getForVote(fgPrint:string,Cdown:number) {
+    const url = HOST + "/image/forvote";
+    const body = {
+      fgPrint:fgPrint,
+      Cdown:Cdown
+    }
+    const response = await axios.post(url, body);
+    if (response.status == 200) {
+      const image: GetImageRespone[] = response.data;
+      return image
+    } else {
+      return [];
     }
 
   }
@@ -225,6 +242,29 @@ export class memeMashService {
       return image
     } else {
       return [];
+    }
+  }
+  async getResCooldown() {
+    const url = HOST + "/cooldown";
+    const response = await axios.get(url);
+    if (response.status == 200) {
+      return response.data
+    } else {
+      return undefined ;
+    }
+  }
+  async putEditCooldown(Cdown: number, id: number) {
+    const url = HOST + "/coolDown";
+    const body = {
+      Cdown: Cdown,
+      id: id,
+    }
+    const response = await axios.put(url, body);
+    if (response.status == 200) {
+      console.log(response.status);
+      return response.status
+    } else {
+      return response.status;
     }
   }
 }

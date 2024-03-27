@@ -24,24 +24,20 @@ export class memeMashService {
     }
   }
   async registerUser(username: string, email: string, password: string, img_avatar: string) {
-    try {
-      const url = HOST + "/login/signin";
+    const url = HOST + "/login/singin";
       const body = {
         username: username,
         email: email,
         password: password,
         img_avatar: img_avatar
+      
       };
       const response = await axios.post(url, body);
       if (response.status === 201) {
-        return response.data;
+        return response.status;
       } else {
-        throw new Error("Failed to register user");
+        return response.status;
       }
-    } catch (error) {
-      console.error("Error registering user:", error);
-      throw error;
-    }
   }
   async getUsersByType(userType: string) {
     try {
@@ -182,11 +178,11 @@ export class memeMashService {
       img_avatar:img,
       status:"" 
     }
-    // console.log(body.img_avatar);
+    console.log(body);
     
     const response = await axios.put(url,body);
     if(response.status==200){
-        console.log(body.img_avatar);
+        console.log(response.status);
         return response.status
     }else{
         return response.status;

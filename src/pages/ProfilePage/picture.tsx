@@ -57,7 +57,7 @@ function PicturePage() {
                         >
                             <div
                                 className="icon-add"
-                                onClick={()=>{
+                                onClick={() => {
                                     const url = prompt("Image URL:");
                                     setImg(url!)
                                 }}
@@ -75,33 +75,35 @@ function PicturePage() {
                             </div>
                         </Box>
                     </div>
-                </>):(<>
-                    <Box
-                                sx={{
-                                  position: "relative",
-                                  width: "100%",
-                                  height: 0,
-                                  paddingBottom: "100%",
-                                  borderRadius: "10px",
-                                  overflow: "hidden",
-                                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                }}
-                              >
-                                <img
-                                  className="cursor-pointer transition-transform transform hover:scale-110"
-                                  style={{
+                </>) : (<>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: 100 }}>
+                        <Box
+                            sx={{
+                                position: "relative",
+                                width: "50%",
+                                height: 0,
+                                paddingBottom: "50%",
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            }}
+                        >
+                            <img
+                                className="cursor-pointer transition-transform transform hover:scale-110"
+                                style={{
                                     position: "absolute",
                                     width: "100%",
                                     height: "100%",
                                     objectFit: "cover",
-                                  }}
-                                  src={Img}
-                                  alt=""
-                            
-                                />
-                              </Box>
+                                }}
+                                src={Img}
+                                alt=""
+
+                            />
+                        </Box>
+                    </div>
                 </>)}
-                
+
                 <div style={{ display: "flex", flexDirection: "column", marginLeft: 100, marginTop: 30 }}>
                     <h2>ชื่อรูปภาพ</h2>
                     <TextField fullWidth style={{ width: 700 }} inputRef={name} />

@@ -68,6 +68,8 @@ function ProfilePage() {
             image.id_user === u?.id_user
         );
         images.current = image;
+        // console.log();
+        
         let sum = 0;
         for (let i = 0; i < images.current.length; i++) {
           sum = sum + images.current[i].score;

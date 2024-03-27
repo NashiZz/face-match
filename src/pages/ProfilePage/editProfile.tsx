@@ -13,31 +13,25 @@ function EditProfilePage() {
   const service = new memeMashService();
   const [avatar, setAvatar] = useState(user?.img_avatar);
   // const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
-  const [file] = useState<File>();
+  const [file, setFile] = useState<File | null>(null);
   const username = useRef<HTMLInputElement>();
   const urlAavar = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
   const pwdNew = useRef<HTMLInputElement>();
   // const pwdNew = useRef<HTMLInputElement>();
-  
-  useEffect(() => {
-    const updateImagePreviews = () => {
-      if (!file) {
-        setAvatar(user?.img_avatar);
-        return;
-      }
-      const newImagePreview = URL.createObjectURL(file);
-      setAvatar(newImagePreview);
-    };
-    updateImagePreviews();
-  }, [file]);
 
-  // function selectFile(event: ChangeEvent<HTMLInputElement>) {
-  //   if (event.target.files) {
-  //     setFile(event.target.files[0]);
-  //     // loadImge()
-  //   }
-  // }
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageUrl = e.target?.result as string;
+        setAvatar(imageUrl);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setAvatar(user?.img_avatar);
+    }
+  }, [file, user?.img_avatar]);
 
   // async function loadImge()  {
   //     if (file) {
@@ -52,26 +46,43 @@ function EditProfilePage() {
   //       },
   //     });
   //     return response.data;
-      
+
   //   }
 
-    
+
   // }
   function navigateToBack() {
     navigate("/profile");
   }
-  async function btnEditData (username:string,password:string,passwordNew:string,image:string){
-    // const ress = await loadImge()
-    // setAvatarUpload("http://localhost:3000"+ress.filename);
-    // console.log();
-    
-    const res = await service.putEditProfile(username,password,passwordNew,+user!.id_user,image);
-    //     setImagesData(res);
-    if(res==204){
-      localStorage.setItem("img_avatar",image)
-      navigate("/profile");
-    }
+  async function btnEditData(username: string, password: string, passwordNew: string, image: string) {
+    try {
+      let newImage: string | undefined = user?.img_avatar;
+      if (file) {
+        const uploadResponse = await service.postUpload(file);
+        if (uploadResponse) {
+          newImage = uploadResponse.url;
+        } else {
+          throw new Error("Failed to upload new image");
+        }
+      }
 
+      const response = await service.putEditProfile(username, password, passwordNew, user!.id_user, newImage || '');
+      if (response === 200) {
+        localStorage.setItem("img_avatar", newImage || '');
+        navigate("/profile");
+      } else {
+        throw new Error("Failed to update profile");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function selectFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFile(file);
+    }
   }
 
   return (
@@ -116,7 +127,7 @@ function EditProfilePage() {
               <img src={avatar} alt="profile" />
 
             </div>
-            {/* <div>
+            <div>
               <Button
                 variant="contained"
                 sx={{ fontFamily: "Kanit, sans-serif" }}
@@ -130,14 +141,7 @@ function EditProfilePage() {
                 onChange={selectFile}
                 style={{ display: "none" }}
               />
-            </div> */}
-            <TextField
-            fullWidth
-            style={{ width: 400 }}
-            defaultValue={user?.img_avatar}
-            inputRef={urlAavar}
-            
-          />
+            </div>
           </Card>
         </div>
         <div
@@ -156,9 +160,9 @@ function EditProfilePage() {
             inputRef={username}
           />
           <h2 className="mt-6" >โปรดใส่รหัสผ่านใหม่ที่ต้องการแก้ไข</h2>
-          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwdNew}/>
+          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwdNew} />
           <h2 className="mt-6" >โปรดใส่รหัสเดิมเพื่อยืนยันการแก้ไข</h2>
-          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
+          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd} />
           <div
             style={{
               display: "flex",
@@ -172,16 +176,16 @@ function EditProfilePage() {
               variant="contained"
               sx={{ fontFamily: "Kanit, sans-serif" }}
               onClick={() => {
-              
-              if (username.current && pwd.current) {
-                console.log(username.current);
-                console.log(pwd.current);
-                btnEditData(username.current.value, pwd.current.value,pwdNew.current!.value ,urlAavar.current!.value);
-              }
-            }}
+                if (username.current && pwd.current && pwdNew.current) {
+                  btnEditData(username.current.value, pwd.current.value, pwdNew.current.value, avatar || '');
+                } else {
+                  console.error("Please fill in all required fields");
+                }
+              }}
             >
               บันทึก
             </Button>
+
           </div>
         </div>
       </div>

@@ -96,13 +96,13 @@ function GraphPage() {
             {imagesData.current.map((image) => (
               <Fragment key={image.id_img}>
                 <div className="card_1">
-                  <Button
+                  {/* <Button
                     variant="contained"
                     onClick={navigateToBack}
                     sx={{ fontFamily: "Kanit, sans-serif" }}
                   >
                     กลับ
-                  </Button>
+                  </Button> */}
                   <div
                     style={{
                       display: "flex",

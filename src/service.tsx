@@ -25,19 +25,19 @@ export class memeMashService {
   }
   async registerUser(username: string, email: string, password: string, img_avatar: string) {
     const url = HOST + "/login/singin";
-      const body = {
-        username: username,
-        email: email,
-        password: password,
-        img_avatar: img_avatar
-      
-      };
-      const response = await axios.post(url, body);
-      if (response.status === 201) {
-        return response.status;
-      } else {
-        return response.status;
-      }
+    const body = {
+      username: username,
+      email: email,
+      password: password,
+      img_avatar: img_avatar
+
+    };
+    const response = await axios.post(url, body);
+    if (response.status === 201) {
+      return response.status;
+    } else {
+      return response.status;
+    }
   }
   async getUsersByType(userType: string) {
     try {
@@ -141,17 +141,22 @@ export class memeMashService {
       return [];
     }
   }
-  async postUpload(img: File) {
-    const url = HOST + "/upload";
-    const body = {
-      file: img
-    }
-    const response = await axios.post(url, body);
-    if (response.status == 200) {
-      const image: UploadPostRespone = response.data;
-      return image
-    } else {
-      return null;
+  async postUpload(img: File): Promise<UploadPostRespone | null> {
+    const url = `${HOST}/upload`;
+    try {
+      const formData = new FormData();
+      formData.append('filename', img);
+
+      const response = await axios.post<UploadPostRespone>(url, formData);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
     }
   }
   async getBeforeRank(date: string) {
@@ -167,34 +172,43 @@ export class memeMashService {
       return [];
     }
   }
-  async putEditProfile(username: string, password: string,passwordNew: string,id:number,img:string) {
+  async putEditProfile(username: string, password: string, passwordNew: string, id: number, img: string) {
     const url = HOST + "/user/editProfile";
+    let newImage: string;
+    if (img !== undefined) {
+      newImage = img;
+    } else {
+
+      newImage = ""; 
+    }
+
     const body = {
-      id_user:id,
-      username:username,
-      email:"",
-      password:password,
-      passwordNew:passwordNew,
-      img_avatar:img,
-      status:"" 
+      id_user: id,
+      username: username,
+      email: "",
+      password: password,
+      passwordNew: passwordNew,
+      img_avatar: newImage,
+      status: ""
     }
     console.log(body);
-    
-    const response = await axios.put(url,body);
-    if(response.status==200){
-        console.log(response.status);
-        return response.status
-    }else{
-        return response.status;
+
+    const response = await axios.put(url, body);
+    if (response.status == 200) {
+      console.log(response.status);
+      return response.status
+    } else {
+      return response.status;
     }
   }
-  async postImage(img: string, id_user:number,name:string) {
+
+  async postImage(img: string, id_user: number, name: string) {
     const url = HOST + "/image";
     const body = {
-      img:img,
-      id_user:id_user,
-      name:name,
-      score:1000
+      img: img,
+      id_user: id_user,
+      name: name,
+      score: 1000
     }
     const response = await axios.post(url, body);
     if (response.status == 200) {

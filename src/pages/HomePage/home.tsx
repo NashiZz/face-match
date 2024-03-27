@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import VsImage from "../../assets/img/Vs.png";
 import { CircularProgress } from "@mui/material";
+import { Link, useNavigate,  } from "react-router-dom";
 
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -27,7 +28,7 @@ function HomePage() {
   const [showEb, setShowEb] = useState(0);
   const [showPa, setShowPa] = useState(0);
   const [showPb, setShowPb] = useState(0);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const [IndexImage,setIndexImage] = useState(4);
   const [loaded, setLoaded] = useState(false);
 
@@ -69,7 +70,29 @@ function HomePage() {
                       }}
                     />
                     <div className="mt-6 text-white">
-                      <h3 className="text-center text-lg font-bold ">{P1?.name}</h3>
+                      {localStorage.getItem("status") == "" ? (<><h3 className="text-center text-lg font-bold ">{P1?.name}</h3></>) : (<>
+                        <div className="flex flex-row justify-center items-center">
+                          <Box sx={{
+                            position: "relative",
+                            width: "15%",
+                            height: 0,
+                            paddingBottom: "15%",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "10px"
+                            }}
+                          >
+                            <img src={P1.img_avatar} onClick={()=>{
+                              navigate(`/profile_user/`+P1.id_user);
+                              localStorage.setItem("img_avatar_user",P1.img_avatar)
+                              localStorage.setItem("username_user",P1.username)
+                            }}/>
+
+                          </Box>
+                          <h3 className="text-center text-lg font-bold mx-5">{P1?.name}</h3>
+                        </div>
+                      </>)}
                       {chekShowP == 0 ? (
                         <></>
                       ) : (
@@ -132,7 +155,27 @@ function HomePage() {
                       }}
                     />
                     <div className="mt-6 text-white">
-                      <h3 className="text-center text-lg font-bold">{P2?.name}</h3>
+                    {localStorage.getItem("status") == "" ? (<><h3 className="text-center text-lg font-bold ">{P1?.name}</h3></>) : (<>
+                        <div className="flex flex-row justify-center items-center">
+                          <Box sx={{
+                            position: "relative",
+                            width: "15%",
+                            height: 0,
+                            paddingBottom: "15%",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                            marginBottom: "10px"
+                          }}>
+                            <img src={P2.img_avatar} onClick={()=>{
+                              navigate(`/profile_user/`+P2.id_user);
+                              localStorage.setItem("img_avatar_user",P2.img_avatar)
+                              localStorage.setItem("username_user",P2.username)
+                            }} />
+                          </Box>
+                          <h3 className="text-center text-lg font-bold mx-5">{P2?.name}</h3>
+                        </div>
+                      </>)}
                       {chekShowP == 0 ? (
                         <></>
                       ) : (
@@ -292,7 +335,7 @@ function HomePage() {
     // setIndexImage(pics.current);
     setP1(selectImg[0]);
     setP2(selectImg[1]);
-    // console.log(P1?.score);
+    // console.log(P1?.img_avatar);
 
     setScore1(selectImg[0].score)
     setScore2(selectImg[1].score)

@@ -10,6 +10,7 @@ import GraphPage from "./pages/ProfilePage/graph";
 
 import LoginPage from "./pages/LoginPage/login";
 import Register_Page from "./pages/RegisterPage/registerPage";
+import Profile_user_Page from "./pages/ProfilePage/profile_user";
 
 const routers = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const routers = createBrowserRouter([
       {
         path: "/rank",
         element: <RankingPage />
+      },
+      {
+        path: "/profile_user/:id",
+        element: <Profile_user_Page />
       },
       {
         path: "/admin_all_user",

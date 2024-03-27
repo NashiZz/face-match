@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import VsImage from "../../assets/img/Vs.png";
 import { CircularProgress } from "@mui/material";
-import { Link, useNavigate,  } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 
 async function delay(ms: number) {
   return await new Promise((resolve) => setTimeout(resolve, ms));
@@ -58,17 +58,35 @@ function HomePage() {
             <div className="flex flex-row justify-center items-center">
               {P1 && P2 ? (
                 <>
-                  <div className="w-1/2 m-4 relative">
-                    <img
-                      src={P1?.img}
-                      alt={P1?.name}
-                      className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                      onClick={() => {
-                        if (chekVote == 0) {
-                          btnVote(P1.score, P2.score, 1, 0)
-                        }
+                  <div className="w-1/2 m-4 relative ">
+                    <Box
+                      className="cursor-pointer transition-transform transform hover:scale-110 mx-20"
+                      sx={{
+                        position: "relative",
+                        width: "80%",
+                        height: 0,
+                        paddingBottom: "80%",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                       }}
-                    />
+                    >
+                      <img
+                        src={P1?.img}
+                        alt={P1?.name}
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                        onClick={() => {
+                          if (chekVote == 0) {
+                            btnVote(P1.score, P2.score, 1, 0)
+                          }
+                        }}
+                      />
+                    </Box >
                     <div className="mt-6 text-white">
                       {localStorage.getItem("status") == "" ? (<><h3 className="text-center text-lg font-bold ">{P1?.name}</h3></>) : (<>
                         <div className="flex flex-row justify-center items-center">
@@ -81,13 +99,13 @@ function HomePage() {
                             overflow: "hidden",
                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                             marginBottom: "10px"
-                            }}
+                          }}
                           >
-                            <img src={P1.img_avatar} onClick={()=>{
-                              navigate(`/profile_user/`+P1.id_user);
-                              localStorage.setItem("img_avatar_user",P1.img_avatar)
-                              localStorage.setItem("username_user",P1.username)
-                            }}/>
+                            <img src={P1.img_avatar} onClick={() => {
+                              navigate(`/profile_user/` + P1.id_user);
+                              localStorage.setItem("img_avatar_user", P1.img_avatar)
+                              localStorage.setItem("username_user", P1.username)
+                            }} />
 
                           </Box>
                           <h3 className="text-center text-lg font-bold mx-5">{P1?.name}</h3>
@@ -143,19 +161,37 @@ function HomePage() {
                     />
                   </div>
                   <div className="w-1/2 m-4 relative">
-                    <img
-                      src={P2?.img}
-                      alt={P2?.name}
-                      className="border-4 w-full h-80 rounded-lg cursor-pointer transition-transform transform hover:scale-110 object-cover"
-                      onClick={() => {
-                        if (chekVote == 0) {
-                          btnVote(P1.score, P2.score, 0, 1)
-                        }
-
+                    <Box
+                      className="cursor-pointer transition-transform transform hover:scale-110"
+                      sx={{
+                        position: "relative",
+                        width: "80%",
+                        height: 0,
+                        paddingBottom: "80%",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                       }}
-                    />
+                    >
+                      <img
+                        src={P2?.img}
+                        alt={P2?.name}
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                        onClick={() => {
+                          if (chekVote == 0) {
+                            btnVote(P1.score, P2.score, 0, 1)
+                          }
+
+                        }}
+                      />
+                    </Box>
                     <div className="mt-6 text-white">
-                    {localStorage.getItem("status") == "" ? (<><h3 className="text-center text-lg font-bold ">{P1?.name}</h3></>) : (<>
+                      {localStorage.getItem("status") == "" ? (<><h3 className="text-center text-lg font-bold ">{P1?.name}</h3></>) : (<>
                         <div className="flex flex-row justify-center items-center">
                           <Box sx={{
                             position: "relative",
@@ -167,10 +203,10 @@ function HomePage() {
                             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                             marginBottom: "10px"
                           }}>
-                            <img src={P2.img_avatar} onClick={()=>{
-                              navigate(`/profile_user/`+P2.id_user);
-                              localStorage.setItem("img_avatar_user",P2.img_avatar)
-                              localStorage.setItem("username_user",P2.username)
+                            <img src={P2.img_avatar} onClick={() => {
+                              navigate(`/profile_user/` + P2.id_user);
+                              localStorage.setItem("img_avatar_user", P2.img_avatar)
+                              localStorage.setItem("username_user", P2.username)
                             }} />
                           </Box>
                           <h3 className="text-center text-lg font-bold mx-5">{P2?.name}</h3>

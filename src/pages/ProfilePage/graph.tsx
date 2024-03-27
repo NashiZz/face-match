@@ -1,6 +1,6 @@
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { memeMashService } from "../../service";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { ImgeVoteGetRes } from "../../model/ImgeVoteGetRes";
@@ -14,7 +14,6 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 function GraphPage() {
   const service = new memeMashService();
-  const navigate = useNavigate();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const imagesData = useRef<ImgeVoteGetRes[]>([]);
@@ -41,9 +40,9 @@ function GraphPage() {
     return date.toISOString().split("T")[0];
   });
 
-  function navigateToBack() {
-    navigate("/profile");
-  }
+  // function navigateToBack() {
+  //   navigate("/profile");
+  // }
   useEffect(() => {
     const loadDataAsync = async () => {
       try {

@@ -30,7 +30,24 @@ function Register_Page() {
         }
 
         try {
+            // let img_avatar = "";
+            // if (avatarFile) {
+            //     const formData = new FormData();
+            //     formData.append("file", avatarFile);
+            //     try {
+            //         const response = await axios.post(HOST + "/upload", formData);
+            //         img_avatar = response.data.filename;
+
+            //     } catch (error) {
+            //         console.error("Error uploading file:", error);
+            //     }
+            // }
+            console.log(userData);
+            
             const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
+            if(response==201){
+                console.log(1);
+            }
 
             if (!response) {
                 throw new Error("เกิดข้อผิดพลาดในการลงทะเบียนผู้ใช้");

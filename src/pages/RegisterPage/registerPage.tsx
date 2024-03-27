@@ -44,8 +44,12 @@ function Register_Page() {
             //         console.error("Error uploading file:", error);
             //     }
             // }
-
+            console.log(userData);
+            
             const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
+            if(response==201){
+                console.log(1);
+            }
 
             if (!response) {
                 throw new Error("เกิดข้อผิดพลาดในการลงทะเบียนผู้ใช้");

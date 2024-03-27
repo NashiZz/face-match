@@ -67,7 +67,7 @@ function EditProfilePage() {
     
     const res = await service.putEditProfile(username,password,passwordNew,+user!.id_user,image);
     //     setImagesData(res);
-    if(res==200){
+    if(res==204){
       localStorage.setItem("img_avatar",image)
       navigate("/profile");
     }

@@ -17,6 +17,7 @@ function EditProfilePage() {
   const username = useRef<HTMLInputElement>();
   const urlAavar = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
+  const pwdNew = useRef<HTMLInputElement>();
   // const pwdNew = useRef<HTMLInputElement>();
   
   useEffect(() => {
@@ -59,12 +60,12 @@ function EditProfilePage() {
   function navigateToBack() {
     navigate("/profile");
   }
-  async function btnEditData (username:string,password:string,image:string){
+  async function btnEditData (username:string,password:string,passwordNew:string,image:string){
     // const ress = await loadImge()
     // setAvatarUpload("http://localhost:3000"+ress.filename);
     // console.log();
     
-    const res = await service.putEditProfile(username,password,+user!.id_user,image);
+    const res = await service.putEditProfile(username,password,passwordNew,+user!.id_user,image);
     //     setImagesData(res);
     if(res==200){
       localStorage.setItem("img_avatar",image)
@@ -155,8 +156,8 @@ function EditProfilePage() {
             inputRef={username}
           />
           <h2 className="mt-6" >โปรดใส่รหัสผ่านใหม่ที่ต้องการแก้ไข</h2>
-          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
-          <h2 className="mt-6" >โปรดใส่รหัสผ่านเพื่อยืนยันการแก้ไข</h2>
+          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwdNew}/>
+          <h2 className="mt-6" >โปรดใส่รหัสเดิมเพื่อยืนยันการแก้ไข</h2>
           <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
           <div
             style={{
@@ -175,7 +176,7 @@ function EditProfilePage() {
               if (username.current && pwd.current) {
                 console.log(username.current);
                 console.log(pwd.current);
-                btnEditData(username.current.value, pwd.current.value,urlAavar.current!.value);
+                btnEditData(username.current.value, pwd.current.value,pwdNew.current!.value ,urlAavar.current!.value);
               }
             }}
             >

@@ -171,13 +171,14 @@ export class memeMashService {
       return [];
     }
   }
-  async putEditProfile(username: string, password: string,id:number,img:string) {
+  async putEditProfile(username: string, password: string,passwordNew: string,id:number,img:string) {
     const url = HOST + "/user/editProfile";
     const body = {
       id_user:id,
       username:username,
       email:"",
       password:password,
+      passwordNew:passwordNew,
       img_avatar:img,
       status:"" 
     }

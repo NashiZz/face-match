@@ -1,13 +1,17 @@
-import { Button, IconButton, TextField } from "@mui/material";
-import { useRef } from "react";
+import { Button, TextField } from "@mui/material";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AddIcon from '@mui/icons-material/Add';
 import { memeMashService } from "../../service";
+import axios from "axios";
 
 function Register_Page() {
+    const HOST: string = "http://localhost:3000";
+
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const username = useRef<HTMLInputElement>();
     const email = useRef<HTMLInputElement>();
     const password = useRef<HTMLInputElement>();
+    const conpassword = useRef<HTMLInputElement>();
     const navigate = useNavigate();
     const service = new memeMashService();
 
@@ -16,15 +20,33 @@ function Register_Page() {
             username: username.current?.value || "",
             email: email.current?.value || "",
             password: password.current?.value || "",
-            img_avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" // URL รูปภาพ
+            conpassword: conpassword.current?.value || "",
         };
         if (!userData.username || !userData.email || !userData.password) {
             console.error("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
 
+        if (userData.password !== userData.conpassword) {
+            console.error("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
+            return;
+        }
+
         try {
-            const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
+            let img_avatar = "";
+            if (avatarFile) {
+                const formData = new FormData();
+                formData.append("file", avatarFile);
+                try {
+                    const response = await axios.post(HOST + "/upload", formData);
+                    img_avatar = response.data.filename;
+
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                }
+            }
+
+            const response = await service.registerUser(userData.username, userData.email, userData.password, img_avatar);
 
             if (!response) {
                 throw new Error("เกิดข้อผิดพลาดในการลงทะเบียนผู้ใช้");
@@ -47,19 +69,34 @@ function Register_Page() {
         }
     }
 
+    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageUrl = e.target?.result as string;
+                const previewImg = document.querySelector("#preview") as HTMLImageElement;
+                if (previewImg) {
+                    previewImg.src = imageUrl;
+                }
+            };
+            reader.readAsDataURL(file);
+            setAvatarFile(file);
+        }
+    }
+
     return (
         <div className="kanit-regular flex justify-center items-center bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500"
             style={{ boxSizing: 'border-box', minHeight: '100vh' }}>
             <div className='wrapper'>
                 <form action="">
                     <h1>สมัครสมาชิก</h1>
-                    <div style={{ display: 'flex', justifyContent: "center", position: "relative" }}>
-                        <img style={{ borderRadius: "50%", border: "2px solid #191919", color: "GrayText" }} width={140} src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" />
-                        <div style={{ display: 'flex', justifyContent: "center", position: "absolute", bottom: "-5px", left: "200px" }}>
-                            <IconButton style={{ backgroundColor: "white", borderRadius: "50%", padding: "8px" }}>
-                                <AddIcon style={{ color: "#191919" }} />
-                            </IconButton>
-                        </div>
+                    <img />
+                    <div style={{ display: 'flex', justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                        <img id="preview" alt="Image Preview" style={{ borderRadius: "50%", border: "2px solid #191919", color: "GrayText" }} width={140}
+                            src={avatarFile ? URL.createObjectURL(avatarFile) : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"}
+                        />
+                        <input type="file" accept="image/*" onChange={handleFileChange} />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row' }} className='input-box'>
                         <TextField label='ชื่อผู้ใช้' inputRef={username} fullWidth />
@@ -68,7 +105,10 @@ function Register_Page() {
                         <TextField label='อีเมล' inputRef={email} fullWidth />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'row' }} className='input-box'>
-                        <TextField label='รหัสผ่าน' inputRef={password} fullWidth />
+                        <TextField label='รหัสผ่าน' type="password" inputRef={password} fullWidth />
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row' }} className='input-box'>
+                        <TextField label='ยืนยันรหัสผ่าน' type="password" inputRef={conpassword} fullWidth />
                     </div>
                     <Button onClick={handleRegister}>
                         สมัคร

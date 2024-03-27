@@ -13,15 +13,15 @@ function PicturePage() {
     function navigateToBack() {
         navigate("/profile");
     }
-    async function bntAddImage (img:string,name:string){
-        const res = await service.postImage(img,+iduser!,name);
-    //     setImagesData(res);
-    if(res==200){
-      navigate("/profile");
-    }
+    async function bntAddImage(img: string, name: string) {
+        const res = await service.postImage(img, +iduser!, name);
+        //     setImagesData(res);
+        if (res == 200) {
+            navigate("/profile");
+        }
     }
     return (
-        <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh"}}>
+        <div className="flex justify-center items-center flex-col bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500" style={{ minHeight: "100vh" }}>
             <div className="card_edit">
                 <div
                     className="flex justify-center "
@@ -104,10 +104,10 @@ function PicturePage() {
                 
                 <div style={{ display: "flex", flexDirection: "column", marginLeft: 100, marginTop: 30 }}>
                     <h2>ชื่อรูปภาพ</h2>
-                    <TextField fullWidth style={{ width: 700 }} inputRef={name}/>
+                    <TextField fullWidth style={{ width: 700 }} inputRef={name} />
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 30 }}>
-                        <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} onClick={()=>{
-                            bntAddImage(Img,name.current!.value);
+                        <Button variant="contained" sx={{ fontFamily: 'Kanit, sans-serif' }} onClick={() => {
+                            bntAddImage(Img, name.current!.value);
                         }}>บันทึก</Button>
                     </div>
                 </div>

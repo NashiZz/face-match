@@ -5,7 +5,6 @@ import { memeMashService } from "../../service";
 import axios from "axios";
 
 function Register_Page() {
-    const HOST: string = "http://localhost:3000";
 
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const username = useRef<HTMLInputElement>();
@@ -21,6 +20,7 @@ function Register_Page() {
             email: email.current?.value || "",
             password: password.current?.value || "",
             conpassword: conpassword.current?.value || "",
+            img_avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
         };
         if (!userData.username || !userData.email || !userData.password) {
             console.error("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -33,20 +33,20 @@ function Register_Page() {
         }
 
         try {
-            let img_avatar = "";
-            if (avatarFile) {
-                const formData = new FormData();
-                formData.append("file", avatarFile);
-                try {
-                    const response = await axios.post(HOST + "/upload", formData);
-                    img_avatar = response.data.filename;
+            // let img_avatar = "";
+            // if (avatarFile) {
+            //     const formData = new FormData();
+            //     formData.append("file", avatarFile);
+            //     try {
+            //         const response = await axios.post(HOST + "/upload", formData);
+            //         img_avatar = response.data.filename;
 
-                } catch (error) {
-                    console.error("Error uploading file:", error);
-                }
-            }
+            //     } catch (error) {
+            //         console.error("Error uploading file:", error);
+            //     }
+            // }
 
-            const response = await service.registerUser(userData.username, userData.email, userData.password, img_avatar);
+            const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
 
             if (!response) {
                 throw new Error("เกิดข้อผิดพลาดในการลงทะเบียนผู้ใช้");

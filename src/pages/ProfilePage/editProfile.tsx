@@ -1,11 +1,8 @@
 import { Box, Button, Card, TextField } from "@mui/material";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { memeMashService } from "../../service";
-import { UploadPostRespone } from "../../model/uploadPostRespone";
-import axios from "axios";
 import { PostUserRespone } from "../../model/postUserRespone";
-import { string } from "prop-types";
 
 function EditProfilePage() {
   const navigate = useNavigate();
@@ -15,12 +12,13 @@ function EditProfilePage() {
   // console.log(user)
   const service = new memeMashService();
   const [avatar, setAvatar] = useState(user?.img_avatar);
-  const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
-  const [file, setFile] = useState<File>();
+  // const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
+  const [file] = useState<File>();
   const username = useRef<HTMLInputElement>();
   const urlAavar = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
-
+  // const pwdNew = useRef<HTMLInputElement>();
+  
   useEffect(() => {
     const updateImagePreviews = () => {
       if (!file) {
@@ -33,31 +31,31 @@ function EditProfilePage() {
     updateImagePreviews();
   }, [file]);
 
-  function selectFile(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.files) {
-      setFile(event.target.files[0]);
-      // loadImge()
-    }
-  }
+  // function selectFile(event: ChangeEvent<HTMLInputElement>) {
+  //   if (event.target.files) {
+  //     setFile(event.target.files[0]);
+  //     // loadImge()
+  //   }
+  // }
 
-  async function loadImge()  {
-      if (file) {
-      console.log("uploading...");
-      const url = "http://localhost:3000/upload";
-      const body = {
-        file: file,
-      };
-      const response = await axios.post(url, body, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
+  // async function loadImge()  {
+  //     if (file) {
+  //     console.log("uploading...");
+  //     const url = "http://localhost:3000/upload";
+  //     const body = {
+  //       file: file,
+  //     };
+  //     const response = await axios.post(url, body, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+  //     return response.data;
       
-    }
+  //   }
 
     
-  }
+  // }
   function navigateToBack() {
     navigate("/profile");
   }
@@ -156,6 +154,8 @@ function EditProfilePage() {
             defaultValue={user?.username}
             inputRef={username}
           />
+          <h2 className="mt-6" >โปรดใส่รหัสผ่านใหม่ที่ต้องการแก้ไข</h2>
+          <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
           <h2 className="mt-6" >โปรดใส่รหัสผ่านเพื่อยืนยันการแก้ไข</h2>
           <TextField fullWidth style={{ width: 700 }} type="password" inputRef={pwd}/>
           <div

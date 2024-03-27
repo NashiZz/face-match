@@ -33,9 +33,6 @@ function Header() {
     navigate("/");
   }
 
-  function navigateToLogin() {
-    navigate("/login");
-  }
   function navigateToLoOut() {
     localStorage.setItem("username", "บุคคลนิรนาม");
     localStorage.setItem("email", "");

@@ -3,12 +3,12 @@ import { Box } from "@mui/system";
 import "./login.css";
 import { useRef } from "react";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function LoginPage2() {
   let emailRef = useRef<HTMLInputElement>();
   let passwordRef = useRef<HTMLInputElement>();
-  const navigate = useNavigate();
+
   return (
     <>
       <Container fixed>

@@ -1,4 +1,4 @@
-import { TableCell, TableRow, Box, Button } from "@mui/material";
+import { TableCell, TableRow, Box } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { GetImageRespone } from "../../model/getImageRespone";
@@ -15,7 +15,7 @@ function RankingPage() {
     []
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [ChekData, setChekData] = useState(0);
+
   const formattedDateTimeTest = new Date();
   // console.log(formattedDateTimeTest);
   const date = new Date(formattedDateTimeTest);

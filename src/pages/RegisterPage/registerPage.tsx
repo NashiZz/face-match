@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { memeMashService } from "../../service";
 
 function Register_Page() {
-
-    // const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const username = useRef<HTMLInputElement>();
     const email = useRef<HTMLInputElement>();
     const password = useRef<HTMLInputElement>();
     const conpassword = useRef<HTMLInputElement>();
     const navigate = useNavigate();
     const service = new memeMashService();
-
+    
     async function handleRegister() {
         const userData = {
             username: username.current?.value || "",
@@ -21,7 +19,7 @@ function Register_Page() {
             conpassword: conpassword.current?.value || "",
             img_avatar: "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
         };
-        if (!userData.username || !userData.email || !userData.password) {
+        if (!userData.username || !userData.email || !userData.password || !userData.conpassword) {
             console.error("กรุณากรอกข้อมูลให้ครบถ้วน");
             return;
         }
@@ -32,19 +30,6 @@ function Register_Page() {
         }
 
         try {
-            // let img_avatar = "";
-            // if (avatarFile) {
-            //     const formData = new FormData();
-            //     formData.append("file", avatarFile);
-            //     try {
-            //         const response = await axios.post(HOST + "/upload", formData);
-            //         img_avatar = response.data.filename;
-
-            //     } catch (error) {
-            //         console.error("Error uploading file:", error);
-            //     }
-            // }
-
             const response = await service.registerUser(userData.username, userData.email, userData.password, userData.img_avatar);
 
             if (!response) {
@@ -67,22 +52,6 @@ function Register_Page() {
             console.error(error);
         }
     }
-
-    // function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    //     const file = event.target.files?.[0];
-    //     if (file) {
-    //         const reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             const imageUrl = e.target?.result as string;
-    //             const previewImg = document.querySelector("#preview") as HTMLImageElement;
-    //             if (previewImg) {
-    //                 previewImg.src = imageUrl;
-    //             }
-    //         };
-    //         reader.readAsDataURL(file);
-    //         setAvatarFile(file);
-    //     }
-    // }
 
     return (
         <div className="kanit-regular flex justify-center items-center bg-gradient-to-r from-purple-300 via-purple-500 to-indigo-500"

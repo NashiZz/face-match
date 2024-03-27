@@ -31,7 +31,7 @@ export class memeMashService {
         email: email,
         password: password,
         img_avatar: img_avatar
-      };
+      }
       const response = await axios.post(url, body);
       if (response.status === 201) {
         return response.data;

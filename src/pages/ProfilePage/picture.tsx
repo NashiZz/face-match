@@ -41,38 +41,67 @@ function PicturePage() {
                         </Button>
                     </Box>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: 100 }}>
-                    <Box
-                        className="group hover:bg-sky-500 hover:ring-sky-500"
-                        sx={{
-                            position: "relative",
-                            width: 250,
-                            height: 250,
-                            borderRadius: "10px",
-                            overflow: "hidden",
-                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                        }}
-                    >
-                        <div
-                            className="icon-add"
-                            onClick={()=>{
-                                const url = prompt("Image URL:");
-                                setImg(url!)
-                            }}
-                            style={{
-                                position: "absolute",
-                                width: "100%",
-                                height: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                cursor: "pointer"
+
+                {Img == "" ? (<>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: 100 }}>
+                        <Box
+                            className="group hover:bg-sky-500 hover:ring-sky-500"
+                            sx={{
+                                position: "relative",
+                                width: 250,
+                                height: 250,
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
                             }}
                         >
-                            <AddIcon style={{ fontSize: "56px" }} />
-                        </div>
-                    </Box>
-                </div>
+                            <div
+                                className="icon-add"
+                                onClick={()=>{
+                                    const url = prompt("Image URL:");
+                                    setImg(url!)
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    width: "100%",
+                                    height: "100%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    cursor: "pointer"
+                                }}
+                            >
+                                <AddIcon style={{ fontSize: "56px" }} />
+                            </div>
+                        </Box>
+                    </div>
+                </>):(<>
+                    <Box
+                                sx={{
+                                  position: "relative",
+                                  width: "100%",
+                                  height: 0,
+                                  paddingBottom: "100%",
+                                  borderRadius: "10px",
+                                  overflow: "hidden",
+                                  boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                                }}
+                              >
+                                <img
+                                  className="cursor-pointer transition-transform transform hover:scale-110"
+                                  style={{
+                                    position: "absolute",
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                  }}
+                                  src={Img}
+                                  alt=""
+                            
+                                />
+                              </Box>
+                </>)}
+                
                 <div style={{ display: "flex", flexDirection: "column", marginLeft: 100, marginTop: 30 }}>
                     <h2>ชื่อรูปภาพ</h2>
                     <TextField fullWidth style={{ width: 700 }} inputRef={name}/>

@@ -1,23 +1,19 @@
 import {
     Box,
-    Button,
     CircularProgress,
     Container,
     Divider,
     Grid,
     IconButton,
     Menu,
-    MenuItem,
     Typography,
   } from "@mui/material";
   import FavoriteIcon from "@mui/icons-material/Favorite";
   import MoreVertIcon from "@mui/icons-material/MoreVert";
-  import AddIcon from '@mui/icons-material/Add';
   import { useNavigate, useParams } from "react-router-dom";
   import { Fragment, useEffect, useRef, useState } from "react";
   import { memeMashService } from "../../service";
   import { GetImageRespone } from "../../model/getImageRespone";
-  import { PostUserRespone } from "../../model/postUserRespone";
   import React from "react";
   
   function Profile_user_Page() {
@@ -35,7 +31,6 @@ import {
     const navigate = useNavigate();
     const service = new memeMashService();
     const images = useRef<GetImageRespone[]>([]);
-    const user = useRef<PostUserRespone>();
     const [sumScore, setSumScore] = useState(0);
   
     

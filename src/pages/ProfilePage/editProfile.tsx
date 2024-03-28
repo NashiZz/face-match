@@ -15,7 +15,6 @@ function EditProfilePage() {
   // const [avatarUpload, setAvatarUpload] = useState(user?.img_avatar);
   const [file, setFile] = useState<File | null>(null);
   const username = useRef<HTMLInputElement>();
-  const urlAavar = useRef<HTMLInputElement>();
   const pwd = useRef<HTMLInputElement>();
   const pwdNew = useRef<HTMLInputElement>();
   // const pwdNew = useRef<HTMLInputElement>();
@@ -54,7 +53,7 @@ function EditProfilePage() {
   function navigateToBack() {
     navigate("/profile");
   }
-  async function btnEditData(username: string, password: string, passwordNew: string, image: string) {
+  async function btnEditData(username: string, password: string, passwordNew: string, _image: string) {
     try {
       let newImage: string | undefined = user?.img_avatar;
       if (file) {

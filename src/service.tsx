@@ -7,8 +7,7 @@ import { UploadPostRespone } from "./model/uploadPostRespone";
 import { VotePostDateRes } from "./model/votePostDateRes";
 import { UserGetRes } from "./model/userGetRes";
 
-// const HOST: string = "https://backend-mememash.onrender.com";
-const HOST: string = "http://localhost:3000";
+const HOST: string = "https://backend-mememash.onrender.com";
 export class memeMashService {
   async getLogin(email: string, password: string) {
     const url = HOST + "/login";

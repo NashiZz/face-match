@@ -6,30 +6,19 @@ import {
   Divider,
   Grid,
   IconButton,
-  Menu,
-  MenuItem,
   Typography,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from '@mui/icons-material/Add';
+import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from "react-router-dom";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { memeMashService } from "../../service";
 import { GetImageRespone } from "../../model/getImageRespone";
 import { PostUserRespone } from "../../model/postUserRespone";
-import React from "react";
 
 function ProfilePage() {
   const [loading, setLoading] = useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const navigate = useNavigate();
   const service = new memeMashService();
@@ -69,7 +58,7 @@ function ProfilePage() {
         );
         images.current = image;
         // console.log();
-        
+
         let sum = 0;
         for (let i = 0; i < images.current.length; i++) {
           sum = sum + images.current[i].score;
@@ -94,7 +83,7 @@ function ProfilePage() {
 
   return (
     <>
-      {loading && ( 
+      {loading && (
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
           <CircularProgress />
         </div>
@@ -113,7 +102,7 @@ function ProfilePage() {
                 >
                   <Grid item xs={3} md={3} lg={3} sx={{ marginRight: 10 }}>
                     <img
-                      style={{ borderRadius: "50%", width: "100%", objectFit: "cover"}}
+                      style={{ borderRadius: "50%", width: "100%", objectFit: "cover" }}
                       src={localStorage.getItem("img_avatar")?.toString()}
                       alt=""
                     />
@@ -239,7 +228,7 @@ function ProfilePage() {
                                   marginTop: "8px",
                                 }}
                               >
-                                <IconButton aria-label="like">
+                                <IconButton aria-label="like" >
                                   <FavoriteIcon color="error" />
                                 </IconButton>
                                 <Typography
@@ -248,20 +237,9 @@ function ProfilePage() {
                                 >
                                   {images.current[index].score} คะแนน
                                 </Typography>
-                                <IconButton aria-label="more options" onClick={handleClick}>
-                                  <MoreVertIcon />
+                                <IconButton aria-label="more options" onClick={() => handleDeleteImage(images.current[index].id_img)}>
+                                  <ClearIcon  />
                                 </IconButton>
-                                <Menu
-                                  id="basic-menu"
-                                  anchorEl={anchorEl}
-                                  open={open}
-                                  onClose={handleClose}
-                                  MenuListProps={{
-                                    "aria-labelledby": "basic-button",
-                                  }}
-                                >
-                                  <MenuItem onClick={() => handleDeleteImage(images.current[index].id_img)}>ลบรูปภาพ</MenuItem>
-                                </Menu>
                               </Box>
                             </Grid>
                           </Fragment>
